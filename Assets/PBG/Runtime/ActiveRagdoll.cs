@@ -26,11 +26,15 @@ namespace PBG.Runtime
         private void OnValidate()
         {
             var animators = GetComponentsInChildren<Animator>();
-            AnimatedAnimator = animators[0];
-            PhysicalAnimator = animators[1];
+            if (AnimatedAnimator == null)
+                AnimatedAnimator = animators[0];
+            if (PhysicalAnimator == null)
+                PhysicalAnimator = animators[1];
 
-            AnimatedTorso = AnimatedAnimator.GetBoneTransform(HumanBodyBones.Hips);
-            PhysicalTorso = PhysicalAnimator.GetBoneTransform(HumanBodyBones.Hips).GetComponent<Rigidbody>();
+            if (AnimatedTorso == null)
+                AnimatedTorso = AnimatedAnimator.GetBoneTransform(HumanBodyBones.Hips);
+            if (PhysicalTorso == null)
+                PhysicalTorso = PhysicalAnimator.GetBoneTransform(HumanBodyBones.Hips).GetComponent<Rigidbody>();
         }
 
         private void Awake()
