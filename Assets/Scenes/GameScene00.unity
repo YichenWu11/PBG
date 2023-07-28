@@ -895,7 +895,7 @@ Transform:
   m_GameObject: {fileID: 462687943}
   m_LocalRotation: {x: -0.0037261294, y: 0.0037261294, z: 0.707097, w: 0.707097}
   m_LocalPosition: {x: -0.26058874, y: 0.2005552, z: -0.002113742}
-  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1152007331}
@@ -1257,7 +1257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624223148}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18392313, y: -0.57489794, z: 0.08289194}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1279,7 +1279,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c2eee072019490246b809fe69d465f3e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2893,7 +2893,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ActiveRagdoll: {fileID: 1403646448}
-  m_SyncPhysicsBody: 1
+  m_SyncPhysicsBody: 0
+  m_IKEnabled: 1
 --- !u!114 &1403646445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2922,6 +2923,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca10d68121666248b0f0c6e5f3936e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ActiveRagdoll: {fileID: 1403646448}
+  m_OnGroundDetectionDistance: 0.3
+  m_MaxSlopeAngle: 45
 --- !u!114 &1403646447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2979,7 +2983,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403646442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.717, y: 0.5928981, z: -8.221}
+  m_LocalPosition: {x: 0, y: 0.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3009,9 +3013,9 @@ MonoBehaviour:
   improveSteepInclinations: 1
   inclinationAngle: 30
   inclinationDistance: 1.5
-  MinDistance: 1
-  MaxDistance: 3
-  MinVerticalAngle: -30
+  MinDistance: 1.5
+  MaxDistance: 2
+  MinVerticalAngle: -20
   MaxVerticalAngle: 60
   DontBlockCamera:
     serializedVersion: 2
@@ -3131,7 +3135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474139054}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6208386, y: 0.6208386, z: 0.6208386}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4301,8 +4305,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038049374}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18392313, y: -0.57489794, z: 0.08289194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

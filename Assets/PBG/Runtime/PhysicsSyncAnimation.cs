@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PBG.Runtime.Util;
 
@@ -14,9 +12,7 @@ namespace PBG.Runtime
         private Transform[] m_AnimatedBones;
         private Quaternion[] m_IniJointsRotations;
 
-
-        [SerializeField] [Tooltip("Rotation Speed by Angle.")]
-        private float m_RotationSpeed = 5f;
+        [SerializeField] private float m_RotationSpeed = 5f;
 
         [SerializeField] [Range(0, 60)] private float m_MaxSlopeAngle = 45f;
 
@@ -44,7 +40,7 @@ namespace PBG.Runtime
 
             // 缓存关节初始旋转
             m_IniJointsRotations = new Quaternion[m_Joints.Length];
-            for (var i = 0; i < m_Joints.Length; i++)
+            for (var i = 0; i < m_Joints.Length; ++i)
                 m_IniJointsRotations[i] = m_Joints[i].transform.localRotation;
 
             // 冻结躯干旋转
@@ -56,8 +52,8 @@ namespace PBG.Runtime
             KeepBalance();
             SyncWithAnimation();
 
-            var forceDir = CheckSlopeDirection();
-            if (forceDir != Vector3.zero && Vector3.Dot(m_TargetDirection, forceDir) > 0f)
+            var forceDir = CalculateSlopeDirection();
+            if (forceDir != Vector3.zero && Vector3.Dot(m_TargetDirection, forceDir) > -0.5f)
             {
                 // 从 MinAngle 到 MaxAngle 插值
                 var forceMagnitude = Mathf.Lerp(4f, 12f, Vector3.Angle(forceDir, Vector3.forward));
@@ -85,7 +81,7 @@ namespace PBG.Runtime
             m_ActiveRagdoll.PhysicalTorso.MoveRotation(rotation);
         }
 
-        private Vector3 CheckSlopeDirection()
+        private Vector3 CalculateSlopeDirection()
         {
             if (Physics.Raycast(
                     m_ActiveRagdoll.PhysicalTorso.position,

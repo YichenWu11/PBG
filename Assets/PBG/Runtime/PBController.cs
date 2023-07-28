@@ -14,7 +14,8 @@ namespace PBG.Runtime
         [SerializeField] private ThirdPersonCamera m_ThirdPersonCamera;
 
         private Vector2 m_Movement;
-        private float m_Speed = 1f;
+        private float m_Speed = 2f;
+        private bool m_MoveEnabled = true;
 
         private void OnValidate()
         {
@@ -28,21 +29,31 @@ namespace PBG.Runtime
         {
             // move
             m_ActiveRagdoll.Input.onMove += MovementProcess;
+            m_ActiveRagdoll.Input.onGroundChanged += OnGroundChangedProcess;
 
             // TP Camera
             m_ActiveRagdoll.Input.onLook += m_ThirdPersonCamera.LookProcess;
             m_ActiveRagdoll.Input.onScrollWheel += m_ThirdPersonCamera.ScrollWheelProcess;
+
+            m_ActiveRagdoll.Input.onLeftArm += m_AnimSyncPhysics.LeftArmProcess;
+            m_ActiveRagdoll.Input.onRightArm += m_AnimSyncPhysics.RightArmProcess;
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                m_ActiveRagdoll.Input.IsOnGround = true;
+                OnGroundChangedProcess(m_ActiveRagdoll.Input.IsOnGround);
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftAlt))
                 Cursor.visible = !Cursor.visible;
             // Quit Game
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
 
-            if (m_Movement == Vector2.zero)
+            if (m_Movement == Vector2.zero || !m_MoveEnabled)
             {
                 m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", false);
                 return;
@@ -55,15 +66,33 @@ namespace PBG.Runtime
             var aimedDir =
                 Vector3.ProjectOnPlane(m_ThirdPersonCamera.Camera.transform.forward, Vector3.up).normalized;
             var angleOffset = Vector2.SignedAngle(m_Movement, Vector2.up);
-            // 根据 movement(输入) 和 _aimDirection(相机朝向) 的目标方向
+            // 根据 movement(输入) 和 aimedDirection(相机朝向) 的目标方向
             var targetDir = Quaternion.AngleAxis(angleOffset, Vector3.up) * aimedDir;
-            m_AnimSyncPhysics.AimedDirection = aimedDir;
+            m_AnimSyncPhysics.AimedDirection = targetDir;
             m_PhysicsSyncAnim.AimedDirection = targetDir;
         }
 
         private void MovementProcess(Vector2 movement)
         {
             m_Movement = movement;
+        }
+
+        private void OnGroundChangedProcess(bool isOnGround)
+        {
+            if (isOnGround)
+            {
+                m_MoveEnabled = true;
+                m_ActiveRagdoll.SetAngularDriveScale(1.0f);
+                m_ActiveRagdoll.PhysicalTorso.constraints = RigidbodyConstraints.FreezeRotation;
+                m_ActiveRagdoll.AnimatedAnimator.Play("Idle");
+            }
+            else
+            {
+                m_MoveEnabled = false;
+                m_ActiveRagdoll.SetAngularDriveScale(0.1f);
+                m_ActiveRagdoll.PhysicalTorso.constraints = 0;
+                m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
+            }
         }
     }
 }

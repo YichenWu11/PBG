@@ -4,14 +4,21 @@ using UnityEngine;
 
 namespace PBG.Runtime.Util
 {
+    public static class JointDriveExtensions
+    {
+        public static JointDrive Scale(this JointDrive drive, float scale)
+        {
+            return new JointDrive
+            {
+                positionSpring = drive.positionSpring * scale,
+                positionDamper = drive.positionDamper * scale,
+                maximumForce = drive.maximumForce * scale
+            };
+        }
+    }
+
     public static class ConfigurableJointExtensions
     {
-        // Author: Michael Stevenson | https://www.mstevenson.net/
-
-        /// <summary>
-        /// Sets a joint's targetRotation to match a given local rotation.
-        /// The joint transform's local rotation must be cached on Start and passed into this method.
-        /// </summary>
         public static void SetTargetRotationLocal(this ConfigurableJoint joint, Quaternion targetLocalRotation,
             Quaternion startLocalRotation)
         {
@@ -22,10 +29,6 @@ namespace PBG.Runtime.Util
             SetTargetRotationInternal(joint, targetLocalRotation, startLocalRotation, Space.Self);
         }
 
-        /// <summary>
-        /// Sets a joint's targetRotation to match a given world rotation.
-        /// The joint transform's world rotation must be cached on Start and passed into this method.
-        /// </summary>
         public static void SetTargetRotation(this ConfigurableJoint joint, Quaternion targetWorldRotation,
             Quaternion startWorldRotation)
         {

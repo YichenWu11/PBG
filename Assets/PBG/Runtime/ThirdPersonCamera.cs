@@ -47,7 +47,7 @@ namespace PBG.Runtime
 
         private void Start()
         {
-            Camera = new GameObject("ActiveRogDoll Camera", typeof(Camera));
+            Camera = new GameObject("ThirdPersonCamera", typeof(Camera));
             Camera.transform.parent = transform;
 
             m_SmoothedLookPoint = LookAtPoint.position;

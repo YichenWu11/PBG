@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PBG.Runtime.Util;
 using UnityEngine;
 
 namespace PBG.Runtime
@@ -22,6 +23,8 @@ namespace PBG.Runtime
         public Transform[] AnimatedBones;
         public Rigidbody[] PhysicalBones;
         public ConfigurableJoint[] Joints;
+        public JointDrive[] JointXAngularDrives;
+        public JointDrive[] JointYZAngularDrives;
 
         private void OnValidate()
         {
@@ -42,6 +45,26 @@ namespace PBG.Runtime
             AnimatedBones = AnimatedTorso.GetComponentsInChildren<Transform>();
             PhysicalBones = PhysicalTorso.GetComponentsInChildren<Rigidbody>();
             Joints = PhysicalTorso.GetComponentsInChildren<ConfigurableJoint>();
+            // 缓存 AngularDrives
+            JointXAngularDrives = new JointDrive[Joints.Length];
+            JointYZAngularDrives = new JointDrive[Joints.Length];
+            for (var i = 0; i < Joints.Length; ++i)
+            {
+                var xDrive = new JointDrive
+                {
+                    positionSpring = Joints[i].angularXDrive.positionSpring,
+                    positionDamper = Joints[i].angularXDrive.positionDamper,
+                    maximumForce = Joints[i].angularXDrive.maximumForce
+                };
+                var yzDrive = new JointDrive
+                {
+                    positionSpring = Joints[i].angularYZDrive.positionSpring,
+                    positionDamper = Joints[i].angularYZDrive.positionDamper,
+                    maximumForce = Joints[i].angularYZDrive.maximumForce
+                };
+                JointXAngularDrives[i] = xDrive;
+                JointYZAngularDrives[i] = yzDrive;
+            }
 
             if (TryGetComponent(out InputProcess input))
                 Input = input;
@@ -49,6 +72,15 @@ namespace PBG.Runtime
             else
                 Debug.Log("Active RagDoll GameObject Missing InputProcess Comp.");
 #endif
+        }
+
+        public void SetAngularDriveScale(float scale)
+        {
+            for (var i = 0; i < Joints.Length; ++i)
+            {
+                Joints[i].angularXDrive = JointXAngularDrives[i].Scale(scale);
+                Joints[i].angularYZDrive = JointYZAngularDrives[i].Scale(scale);
+            }
         }
     }
 }
