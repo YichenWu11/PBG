@@ -18,23 +18,16 @@ namespace PBG.Runtime
         private Vector2 m_InputDelta;
         private Vector3 m_SmoothedLookPoint, m_StartDirection;
 
-        public bool improveSteepInclinations = true;
-        public float inclinationAngle = 30, inclinationDistance = 1.5f;
+        private bool improveSteepInclinations = true;
+        private float inclinationAngle = 30, inclinationDistance = 1.5f;
 
         public float MinDistance = 1f;
         public float MaxDistance = 3f;
         private float m_Distance = 2f;
 
-        [Header("--- LIMITS ---")] [Tooltip("How far can the camera look down.")]
         public float MinVerticalAngle = -30;
-
-        [Tooltip("How far can the camera look up.")]
         public float MaxVerticalAngle = 60;
-
-        [Tooltip("Which layers don't make the camera reposition.")]
         public LayerMask DontBlockCamera;
-
-        [Tooltip("How far to reposition the camera from an obstacle.")]
         public float CameraRepositionOffset = 0.15f;
 
         private void OnValidate()

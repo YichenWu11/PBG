@@ -12,6 +12,7 @@ public class InputProcess : MonoBehaviour
     public Action<Vector2> onScrollWheel;
     public Action<float> onLeftArm;
     public Action<float> onRightArm;
+    public Action<bool> onJump;
     public Action<bool> onDebug;
 
     public Action<bool> onGroundChanged;
@@ -65,6 +66,11 @@ public class InputProcess : MonoBehaviour
     public void OnRightArm(InputValue value)
     {
         onRightArm?.Invoke(value.Get<float>());
+    }
+
+    public void OnJump(InputValue value)
+    {
+        onJump?.Invoke(value.isPressed);
     }
 
     public void OnDebug(InputValue value)

@@ -12,9 +12,14 @@ namespace PBG.Runtime
         private Transform[] m_AnimatedBones;
         private Quaternion[] m_IniJointsRotations;
 
-        [SerializeField] private float m_RotationSpeed = 5f;
+        [SerializeField] private float m_RotationSpeed = 2f;
 
         [SerializeField] [Range(0, 60)] private float m_MaxSlopeAngle = 45f;
+
+        private GrabControl m_GrabControl;
+
+        public bool IsJumping { get; set; } = false;
+        public bool IsOnGround { get; set; } = true;
 
         public Vector3 AimedDirection
         {
@@ -49,6 +54,9 @@ namespace PBG.Runtime
 
         private void FixedUpdate()
         {
+            if (IsJumping && IsOnGround)
+                m_ActiveRagdoll.PhysicalTorso.AddForce(Vector3.up * 25f, ForceMode.Impulse);
+
             KeepBalance();
             SyncWithAnimation();
 
@@ -99,6 +107,11 @@ namespace PBG.Runtime
             }
 
             return Vector3.zero;
+        }
+
+        public void JumpProcess(bool value)
+        {
+            IsJumping = value;
         }
     }
 }

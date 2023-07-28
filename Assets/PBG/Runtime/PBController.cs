@@ -12,6 +12,7 @@ namespace PBG.Runtime
         [SerializeField] private AnimationSyncPhysics m_AnimSyncPhysics;
         [SerializeField] private PhysicsSyncAnimation m_PhysicsSyncAnim;
         [SerializeField] private ThirdPersonCamera m_ThirdPersonCamera;
+        [SerializeField] private GrabControl m_GrabControl;
 
         private Vector2 m_Movement;
         private float m_Speed = 2f;
@@ -23,6 +24,7 @@ namespace PBG.Runtime
             if (m_PhysicsSyncAnim == null) m_PhysicsSyncAnim = GetComponent<PhysicsSyncAnimation>();
             if (m_ActiveRagdoll == null) m_ActiveRagdoll = GetComponent<ActiveRagdoll>();
             if (m_ThirdPersonCamera == null) m_ThirdPersonCamera = GetComponent<ThirdPersonCamera>();
+            if (m_GrabControl == null) m_GrabControl = GetComponent<GrabControl>();
         }
 
         private void Start()
@@ -30,13 +32,16 @@ namespace PBG.Runtime
             // move
             m_ActiveRagdoll.Input.onMove += MovementProcess;
             m_ActiveRagdoll.Input.onGroundChanged += OnGroundChangedProcess;
+            m_ActiveRagdoll.Input.onJump += m_PhysicsSyncAnim.JumpProcess;
 
             // TP Camera
             m_ActiveRagdoll.Input.onLook += m_ThirdPersonCamera.LookProcess;
             m_ActiveRagdoll.Input.onScrollWheel += m_ThirdPersonCamera.ScrollWheelProcess;
 
             m_ActiveRagdoll.Input.onLeftArm += m_AnimSyncPhysics.LeftArmProcess;
+            m_ActiveRagdoll.Input.onLeftArm += m_GrabControl.UseLeftGrab;
             m_ActiveRagdoll.Input.onRightArm += m_AnimSyncPhysics.RightArmProcess;
+            m_ActiveRagdoll.Input.onRightArm += m_GrabControl.UseRightGrab;
         }
 
         private void Update()
@@ -79,6 +84,7 @@ namespace PBG.Runtime
 
         private void OnGroundChangedProcess(bool isOnGround)
         {
+            m_PhysicsSyncAnim.IsOnGround = isOnGround;
             if (isOnGround)
             {
                 m_MoveEnabled = true;
@@ -88,10 +94,13 @@ namespace PBG.Runtime
             }
             else
             {
-                m_MoveEnabled = false;
-                m_ActiveRagdoll.SetAngularDriveScale(0.1f);
-                m_ActiveRagdoll.PhysicalTorso.constraints = 0;
-                m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
+                if (!m_PhysicsSyncAnim.IsJumping)
+                {
+                    m_MoveEnabled = false;
+                    m_ActiveRagdoll.SetAngularDriveScale(0.1f);
+                    m_ActiveRagdoll.PhysicalTorso.constraints = 0;
+                    m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
+                }
             }
         }
     }
