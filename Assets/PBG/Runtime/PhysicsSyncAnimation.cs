@@ -18,8 +18,16 @@ namespace PBG.Runtime
 
         private GrabControl m_GrabControl;
 
+        public bool IsGrabbing => m_GrabControl && m_GrabControl.IsGrabbing;
+
         public bool IsJumping { get; set; } = false;
         public bool IsOnGround { get; set; } = true;
+
+        public float SpeedUpRatio { get; set; } = 0;
+
+        public float MaxSpeedMulti = 2.5f;
+        public float MinSpeedMulti = 1.5f;
+
 
         public Vector3 AimedDirection
         {
@@ -54,11 +62,21 @@ namespace PBG.Runtime
 
         private void FixedUpdate()
         {
-            if (IsJumping && IsOnGround)
+            if (IsOnGround && IsJumping)
                 m_ActiveRagdoll.PhysicalTorso.AddForce(Vector3.up * 25f, ForceMode.Impulse);
 
             KeepBalance();
             SyncWithAnimation();
+
+            // SpeedingUp By SpeedUpRatio
+            // var curVel = SpeedUpRatio < -0.5f
+            //     ? Vector3.zero
+            //     : (SpeedUpRatio * (MaxSpeedMulti - MinSpeedMulti) + MinSpeedMulti) * m_TargetDirection;
+            // m_ActiveRagdoll.PhysicalTorso.velocity = curVel;
+            // m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftFoot).GetComponent<Rigidbody>()
+            //     .velocity = curVel;
+            // m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.RightFoot).GetComponent<Rigidbody>()
+            //     .velocity = curVel;
 
             var forceDir = CalculateSlopeDirection();
             if (forceDir != Vector3.zero && Vector3.Dot(m_TargetDirection, forceDir) > -0.5f)
@@ -107,11 +125,6 @@ namespace PBG.Runtime
             }
 
             return Vector3.zero;
-        }
-
-        public void JumpProcess(bool value)
-        {
-            IsJumping = value;
         }
     }
 }

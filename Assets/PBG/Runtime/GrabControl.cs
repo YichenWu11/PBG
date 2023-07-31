@@ -15,6 +15,8 @@ public class GrabControl : MonoBehaviour
 
     private Grabber m_LeftGrab, m_RightGrab;
 
+    public bool IsGrabbing => m_LeftGrab.IsGrabbing || m_RightGrab.IsGrabbing;
+
     private void Awake()
     {
         if (ActiveRagdoll == null) ActiveRagdoll = GetComponent<ActiveRagdoll>();

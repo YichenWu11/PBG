@@ -12,6 +12,8 @@ namespace PBG.Runtime.Util
         private ConfigurableJoint m_Joint;
         private Grabable m_Grabbed;
 
+        public bool IsGrabbing => m_Grabbed != null;
+
         public void Start()
         {
             enabled = false;

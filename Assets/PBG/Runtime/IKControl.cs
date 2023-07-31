@@ -23,17 +23,17 @@ namespace PBG.Runtime
 
         // IK Targets
         private GameObject m_AllTargets;
-        public Transform LeftArmIKTarget { get; set; }
-        public Transform RightArmIKTarget { get; set; }
+        public Transform LeftHandIKTarget { get; set; }
+        public Transform RightHandIKTarget { get; set; }
 
         private void Start()
         {
             m_Animator = GetComponent<Animator>(); // animated animator
             m_AllTargets = new GameObject("AllTargets");
-            LeftArmIKTarget = new GameObject("LeftArmIKTarget").transform;
-            LeftArmIKTarget.transform.parent = m_AllTargets.transform;
-            RightArmIKTarget = new GameObject("RightArmIKTarget").transform;
-            RightArmIKTarget.transform.parent = m_AllTargets.transform;
+            LeftHandIKTarget = new GameObject("LeftHandIKTarget").transform;
+            LeftHandIKTarget.transform.parent = m_AllTargets.transform;
+            RightHandIKTarget = new GameObject("RightHandIKTarget").transform;
+            RightHandIKTarget.transform.parent = m_AllTargets.transform;
         }
 
         private void Update()
@@ -45,20 +45,20 @@ namespace PBG.Runtime
         private void OnAnimatorIK(int layerIndex)
         {
             // Look
-            m_Animator.SetLookAtWeight(LookIKWeight, 0, 1, 1, 0);
+            m_Animator.SetLookAtWeight(LookIKWeight, LeftArmIKWeight + RightArmIKWeight / 2 * 0.5f, 1, 1, 0);
             m_Animator.SetLookAtPosition(LookPoint);
 
             // Left Arm
             m_Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, m_LeftArmIKWeight);
             m_Animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, m_LeftArmIKWeight);
-            m_Animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftArmIKTarget.position);
-            m_Animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftArmIKTarget.rotation);
+            m_Animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandIKTarget.position);
+            m_Animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandIKTarget.rotation);
 
             // Right Arm
             m_Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, m_RightArmIKWeight);
             m_Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, m_RightArmIKWeight);
-            m_Animator.SetIKPosition(AvatarIKGoal.RightHand, RightArmIKTarget.position);
-            m_Animator.SetIKRotation(AvatarIKGoal.RightHand, RightArmIKTarget.rotation);
+            m_Animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandIKTarget.position);
+            m_Animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandIKTarget.rotation);
         }
     }
 }

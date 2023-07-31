@@ -14,9 +14,14 @@ namespace PBG.Runtime
         [SerializeField] private ThirdPersonCamera m_ThirdPersonCamera;
         [SerializeField] private GrabControl m_GrabControl;
 
+        public float MaxSpeed = 2.5f;
+        public float MinSpeed = 1.25f;
+        public float SpeedTransSpeed = 1f;
+
         private Vector2 m_Movement;
-        private float m_Speed = 2f;
+        private float m_Speed = 1f;
         private bool m_MoveEnabled = true;
+        private bool m_IsSpeedUp = false;
 
         private void OnValidate()
         {
@@ -30,9 +35,10 @@ namespace PBG.Runtime
         private void Start()
         {
             // move
-            m_ActiveRagdoll.Input.onMove += MovementProcess;
+            m_ActiveRagdoll.Input.onMove += movement => m_Movement = movement;
+            m_ActiveRagdoll.Input.onSprint += isSpeedUp => m_IsSpeedUp = isSpeedUp && m_Movement != Vector2.zero;
             m_ActiveRagdoll.Input.onGroundChanged += OnGroundChangedProcess;
-            m_ActiveRagdoll.Input.onJump += m_PhysicsSyncAnim.JumpProcess;
+            m_ActiveRagdoll.Input.onJump += isJumping => m_PhysicsSyncAnim.IsJumping = isJumping;
 
             // TP Camera
             m_ActiveRagdoll.Input.onLook += m_ThirdPersonCamera.LookProcess;
@@ -61,11 +67,18 @@ namespace PBG.Runtime
             if (m_Movement == Vector2.zero || !m_MoveEnabled)
             {
                 m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", false);
-                return;
+                m_Speed = 0f;
+                m_PhysicsSyncAnim.SpeedUpRatio = -1f;
+                if (!m_PhysicsSyncAnim.IsGrabbing)
+                    return;
             }
 
+            m_Speed =
+                Mathf.Lerp(m_Speed, m_IsSpeedUp ? MaxSpeed : MinSpeed, SpeedTransSpeed * Time.deltaTime);
+            m_PhysicsSyncAnim.SpeedUpRatio = (m_Speed - MinSpeed) / (MaxSpeed - MinSpeed);
+
             m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", true);
-            m_ActiveRagdoll.AnimatedAnimator.SetFloat("speed", m_Speed);
+            m_ActiveRagdoll.AnimatedAnimator.SetFloat("speed", m_Movement.magnitude * m_Speed);
 
             // 前进方向 (相机 forward 在 XZ 平面上的投影)
             var aimedDir =
@@ -75,11 +88,6 @@ namespace PBG.Runtime
             var targetDir = Quaternion.AngleAxis(angleOffset, Vector3.up) * aimedDir;
             m_AnimSyncPhysics.AimedDirection = targetDir;
             m_PhysicsSyncAnim.AimedDirection = targetDir;
-        }
-
-        private void MovementProcess(Vector2 movement)
-        {
-            m_Movement = movement;
         }
 
         private void OnGroundChangedProcess(bool isOnGround)

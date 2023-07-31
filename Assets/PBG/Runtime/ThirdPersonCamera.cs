@@ -23,7 +23,7 @@ namespace PBG.Runtime
 
         public float MinDistance = 1f;
         public float MaxDistance = 3f;
-        private float m_Distance = 2f;
+        private float m_Distance;
 
         public float MinVerticalAngle = -30;
         public float MaxVerticalAngle = 60;
@@ -45,12 +45,13 @@ namespace PBG.Runtime
 
             m_SmoothedLookPoint = LookAtPoint.position;
             m_StartDirection = LookAtPoint.forward;
+            m_Distance = MinDistance;
         }
 
         private void Update()
         {
             UpdateCameraInput();
-            UpdateCameraPosRot();
+            UpdateCameraTransform();
             AvoidObstacles();
         }
 
@@ -63,7 +64,7 @@ namespace PBG.Runtime
                 MinVerticalAngle, MaxVerticalAngle);
         }
 
-        private void UpdateCameraPosRot()
+        private void UpdateCameraTransform()
         {
             // Improve steep inclinations
             var movedLookPoint = LookAtPoint.position;

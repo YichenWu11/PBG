@@ -10,6 +10,7 @@ public class InputProcess : MonoBehaviour
     public Action<Vector2> onMove;
     public Action<Vector2> onLook;
     public Action<Vector2> onScrollWheel;
+    public Action<bool> onSprint;
     public Action<float> onLeftArm;
     public Action<float> onRightArm;
     public Action<bool> onJump;
@@ -22,7 +23,7 @@ public class InputProcess : MonoBehaviour
 
     public bool IsOnGround { get; set; }
 
-    [SerializeField] private float m_OnGroundDetectionDistance = 0.3f;
+    [SerializeField] private float m_OnGroundDetectionDistance = 0.1f;
     [SerializeField] private float m_MaxSlopeAngle = 45f;
 
     private void OnValidate()
@@ -57,6 +58,12 @@ public class InputProcess : MonoBehaviour
     {
         onScrollWheel?.Invoke(value.Get<Vector2>());
     }
+
+    public void OnSprint(InputValue value)
+    {
+        onSprint?.Invoke(value.isPressed);
+    }
+
 
     public void OnLeftArm(InputValue value)
     {
