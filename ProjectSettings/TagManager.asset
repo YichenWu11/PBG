@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - Character
-  - Grabble
-  - 
-  - 
-  - 
+  - Grabable
+  - FrozenChunks
+  - Button
+  - FrozenGrab
   - 
   - 
   - 

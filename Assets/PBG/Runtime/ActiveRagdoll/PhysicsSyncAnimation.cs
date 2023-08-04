@@ -75,7 +75,8 @@ namespace PBG.Runtime
             }
 
             if (!IsOnGround && IsGrabbing)
-                m_ActiveRagdoll.PhysicalTorso.AddForce(m_ShakeImpluse * m_ShakeDir * m_TargetDirection,
+                m_ActiveRagdoll.PhysicalTorso.AddForce(
+                    m_ShakeImpluse * m_ShakeDir * m_ActiveRagdoll.PhysicalTorso.transform.forward,
                     ForceMode.Force);
 
             KeepBalance();
