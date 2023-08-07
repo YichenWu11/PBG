@@ -37,6 +37,7 @@ namespace PBG.Runtime
             // move
             m_ActiveRagdoll.Input.onMove += MovementProcess;
             m_ActiveRagdoll.Input.onSprint += isSpeedUp => m_IsSpeedUp = isSpeedUp && m_Movement != Vector2.zero;
+            m_ActiveRagdoll.Input.onSprint += m_PhysicsSyncAnim.SpeedUpProcess;
             m_ActiveRagdoll.Input.onGroundChanged += OnGroundChangedProcess;
             m_ActiveRagdoll.Input.onMove += m_PhysicsSyncAnim.ShakeProcess;
             m_ActiveRagdoll.Input.onJump += m_PhysicsSyncAnim.JumpProcess;

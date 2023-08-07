@@ -42,9 +42,19 @@ namespace PBG.Runtime
 
         private void Awake()
         {
-            AnimatedBones = AnimatedTorso.GetComponentsInChildren<Transform>();
+            // AnimatedBones = AnimatedTorso.GetComponentsInChildren<Transform>();
             PhysicalBones = PhysicalTorso.GetComponentsInChildren<Rigidbody>();
             Joints = PhysicalTorso.GetComponentsInChildren<ConfigurableJoint>();
+
+
+            AnimatedBones = new Transform[Joints.Length + 1];
+            AnimatedBones[0] = AnimatedTorso;
+            for (var i = 1; i <= Joints.Length; ++i)
+                AnimatedBones[i] = FindRecursively(AnimatedTorso, Joints[i - 1].name);
+
+            // for (var i = 0; i < Joints.Length; ++i)
+            //     Debug.Log($"{AnimatedBones[i + 1].name}, {Joints[i].name}");
+
             // 缓存 AngularDrives
             JointXAngularDrives = new JointDrive[Joints.Length];
             JointYZAngularDrives = new JointDrive[Joints.Length];
@@ -81,6 +91,20 @@ namespace PBG.Runtime
                 Joints[i].angularXDrive = JointXAngularDrives[i].Scale(scale);
                 Joints[i].angularYZDrive = JointYZAngularDrives[i].Scale(scale);
             }
+        }
+
+        public Transform FindRecursively(Transform parent, string fName)
+        {
+            var result = parent.Find(fName);
+            if (result != null) return result;
+
+            for (var i = 0; i < parent.childCount; i++)
+            {
+                result = FindRecursively(parent.GetChild(i), fName);
+                if (result != null) return result;
+            }
+
+            return null;
         }
     }
 }

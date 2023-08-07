@@ -22,7 +22,6 @@ public class GrabControl : MonoBehaviour
         if (ActiveRagdoll == null) ActiveRagdoll = GetComponent<ActiveRagdoll>();
     }
 
-
     private void Start()
     {
         var leftHand = ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftHand).gameObject;

@@ -52,7 +52,7 @@ namespace PBG.Runtime
         {
             UpdateCameraInput();
             UpdateCameraTransform();
-            AvoidObstacles();
+            // AvoidObstacles();
         }
 
         private void UpdateCameraInput()

@@ -30,8 +30,8 @@ namespace PBG.Runtime
         [SerializeField] private float m_ShakeImpluse = 30f;
         [SerializeField] private float m_ShakeDir = 1;
 
-        // public float MaxSpeedMulti = 2.5f;
-        // public float MinSpeedMulti = 1.5f;
+        public float MaxSpeedMulti = 2.5f;
+        public float MinSpeedMulti = 1.25f;
 
 
         public Vector3 AimedDirection
@@ -68,6 +68,15 @@ namespace PBG.Runtime
 
         private void FixedUpdate()
         {
+            // SpeedingUp By SpeedUpRatio
+            if (IsOnGround)
+            {
+                var curVel = SpeedUpRatio < -0.5f
+                    ? Vector3.zero
+                    : (SpeedUpRatio * (MaxSpeedMulti - MinSpeedMulti) + MinSpeedMulti) * m_TargetDirection;
+                m_ActiveRagdoll.PhysicalTorso.velocity = curVel;
+            }
+
             if (IsOnGround && WantToJump)
             {
                 m_ActiveRagdoll.PhysicalTorso.AddForce(Vector3.up * m_JumpImpluse, ForceMode.Impulse);
@@ -81,16 +90,6 @@ namespace PBG.Runtime
 
             KeepBalance();
             SyncWithAnimation();
-
-            // SpeedingUp By SpeedUpRatio
-            // var curVel = SpeedUpRatio < -0.5f
-            //     ? Vector3.zero
-            //     : (SpeedUpRatio * (MaxSpeedMulti - MinSpeedMulti) + MinSpeedMulti) * m_TargetDirection;
-            // m_ActiveRagdoll.PhysicalTorso.velocity = curVel;
-            // m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftFoot).GetComponent<Rigidbody>()
-            //     .velocity = curVel;
-            // m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.RightFoot).GetComponent<Rigidbody>()
-            //     .velocity = curVel;
 
             var forceDir = CalculateSlopeDirection();
             if (forceDir != Vector3.zero && Vector3.Dot(m_TargetDirection, forceDir) > -0.5f)
@@ -130,6 +129,10 @@ namespace PBG.Runtime
         public void ShakeProcess(Vector2 value)
         {
             if (IsGrabbing) m_ShakeDir = value.y;
+        }
+
+        public void SpeedUpProcess(bool isSpeedUp)
+        {
         }
 
         private Vector3 CalculateSlopeDirection()

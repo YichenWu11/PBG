@@ -34,9 +34,9 @@ public class InputProcess : MonoBehaviour
     private void Start()
     {
         m_LeftFoot =
-            m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftFoot).GetComponent<Rigidbody>();
+            m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftLowerLeg).GetComponent<Rigidbody>();
         m_RightFoot =
-            m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.RightFoot).GetComponent<Rigidbody>();
+            m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.RightLowerLeg).GetComponent<Rigidbody>();
     }
 
     private void Update()
