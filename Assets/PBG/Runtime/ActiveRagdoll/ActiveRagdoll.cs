@@ -46,7 +46,6 @@ namespace PBG.Runtime
             PhysicalBones = PhysicalTorso.GetComponentsInChildren<Rigidbody>();
             Joints = PhysicalTorso.GetComponentsInChildren<ConfigurableJoint>();
 
-
             AnimatedBones = new Transform[Joints.Length + 1];
             AnimatedBones[0] = AnimatedTorso;
             for (var i = 1; i <= Joints.Length; ++i)
@@ -76,12 +75,28 @@ namespace PBG.Runtime
                 JointYZAngularDrives[i] = yzDrive;
             }
 
-            if (TryGetComponent(out InputProcess input))
-                Input = input;
-#if UNITY_EDITOR
-            else
-                Debug.Log("Active RagDoll GameObject Missing InputProcess Comp.");
-#endif
+            Input = GetComponent<InputProcess>();
+        }
+
+        private void Start()
+        {
+            // foreach (var joint in Joints)
+            // {
+            //     var xDrive = new JointDrive()
+            //     {
+            //         positionSpring = joint.angularXDrive.positionSpring,
+            //         positionDamper = joint.angularXDrive.positionDamper * 10,
+            //         maximumForce = joint.angularXDrive.maximumForce
+            //     };
+            //     var yzDrive = new JointDrive()
+            //     {
+            //         positionSpring = joint.angularYZDrive.positionSpring,
+            //         positionDamper = joint.angularYZDrive.positionDamper * 10,
+            //         maximumForce = joint.angularYZDrive.maximumForce
+            //     };
+            //     joint.angularXDrive = xDrive;
+            //     joint.angularYZDrive = yzDrive;
+            // }
         }
 
         public void SetAngularDriveScale(float scale)

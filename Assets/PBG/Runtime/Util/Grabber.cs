@@ -33,9 +33,12 @@ namespace PBG.Runtime.Util
             if (whatToGrab.transform.IsChildOf(GrabCtrl.ActiveRagdoll.transform))
                 return;
 
-            var layerMask = 1 << LayerMask.NameToLayer("FrozenGrab");
-            if ((whatToGrab.gameObject.layer & layerMask) != 0)
+            var layerMask = LayerMask.NameToLayer("FrozenGrab");
+            if (whatToGrab.gameObject.layer == layerMask)
                 return;
+
+            // Debug.Log(
+            //     $"{whatToGrab.gameObject.layer & layerMask}, {LayerMask.LayerToName(whatToGrab.gameObject.layer)}");
 
             m_Joint = gameObject.AddComponent<ConfigurableJoint>();
             m_Joint.connectedBody = whatToGrab;

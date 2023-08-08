@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace PBG.Runtime.Util
 {
@@ -11,7 +12,8 @@ namespace PBG.Runtime.Util
 
         public void Start()
         {
-            Debug.Log(Calculate(GameObject).size);
+            if (GameObject != null)
+                Debug.Log(Calculate(GameObject).size);
         }
 
         public static Bounds Calculate(GameObject gameObject, bool includeInactive = false)

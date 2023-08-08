@@ -41,6 +41,8 @@ namespace PBG.Runtime.Util
                 min = 0f,
                 max = 0f
             };
+            if (m_ButtonTrigger != null)
+                m_ButtonTrigger.OnButtonTriggered += isPressed => OpenOrClose = isPressed;
         }
 
         private void Update()

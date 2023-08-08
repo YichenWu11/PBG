@@ -73,7 +73,8 @@ namespace PBG.Runtime
             {
                 var curVel = SpeedUpRatio < -0.5f
                     ? Vector3.zero
-                    : (SpeedUpRatio * (MaxSpeedMulti - MinSpeedMulti) + MinSpeedMulti) * m_TargetDirection;
+                    : (SpeedUpRatio * (MaxSpeedMulti - MinSpeedMulti) + MinSpeedMulti) *
+                      m_ActiveRagdoll.PhysicalTorso.transform.forward;
                 m_ActiveRagdoll.PhysicalTorso.velocity = curVel;
             }
 

@@ -7,7 +7,7 @@ namespace PBG.Runtime.Util
 {
     public class UpDownPlatform : MonoBehaviour
     {
-        [SerializeField] private ButtonTrigger m_ButtonTrigger;
+        [SerializeField] private ButtonTrigger[] m_ButtonTrigger;
 
         public Vector3 MoveDirection = Vector3.up;
         public float MoveDistance = 5f;
@@ -21,6 +21,8 @@ namespace PBG.Runtime.Util
         private void Start()
         {
             m_StartPosition = transform.position;
+            foreach (var trigger in m_ButtonTrigger)
+                trigger.OnButtonTriggeredEnterOnly += isPressed => UpOrDown = !UpOrDown;
         }
 
         private void Update()

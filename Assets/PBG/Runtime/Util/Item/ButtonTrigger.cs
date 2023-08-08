@@ -1,18 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PBG.Runtime.Util
 {
     public class ButtonTrigger : MonoBehaviour
     {
-        public Action<Collider> OnButtonTriggered;
+        public Action<bool> OnButtonTriggered;
+        public Action<bool> OnButtonTriggeredEnterOnly;
+        public Action<bool> OnButtonTriggeredExitOnly;
 
         private void OnTriggerEnter(Collider other)
         {
-            OnButtonTriggered?.Invoke(other);
-            Debug.Log("Button Enter");
+            OnButtonTriggered?.Invoke(true);
+            OnButtonTriggeredEnterOnly?.Invoke(true);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            OnButtonTriggered?.Invoke(false);
+            OnButtonTriggeredExitOnly?.Invoke(false);
         }
     }
 }

@@ -355,6 +355,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8960
   CameraRepositionOffset: 0.15
+  m_BlockCameraMat: {fileID: 2100000, guid: fbd6ba73154b8a24c8fdcedf4641010a, type: 2}
 --- !u!114 &4486762911083098161
 MonoBehaviour:
   m_ObjectHideFlags: 0

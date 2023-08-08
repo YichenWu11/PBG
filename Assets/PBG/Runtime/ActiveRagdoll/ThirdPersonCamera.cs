@@ -30,6 +30,10 @@ namespace PBG.Runtime
         public LayerMask DontBlockCamera;
         public float CameraRepositionOffset = 0.15f;
 
+        [SerializeField] private Material m_BlockCameraMat;
+        [SerializeField] private GameObject m_lastBlockObj;
+        [SerializeField] private Material m_lastBlockObjMat;
+
         private void OnValidate()
         {
             if (m_ActiveRagdoll == null)
@@ -53,6 +57,7 @@ namespace PBG.Runtime
             UpdateCameraInput();
             UpdateCameraTransform();
             // AvoidObstacles();
+            MakeObstaclesTransparent();
         }
 
         private void UpdateCameraInput()
@@ -98,6 +103,28 @@ namespace PBG.Runtime
                 Camera.transform.position = hitInfo.point + hitInfo.normal * CameraRepositionOffset;
                 Camera.transform.LookAt(m_SmoothedLookPoint);
             }
+        }
+
+        private void MakeObstaclesTransparent()
+        {
+            var cameraRay = new Ray(LookAtPoint.position, Camera.transform.position - LookAtPoint.position);
+            var hit = Physics.Raycast(cameraRay, out var hitInfo,
+                Vector3.Distance(Camera.transform.position, LookAtPoint.position), ~DontBlockCamera);
+
+            // if (hit)
+            // {
+            //     if (m_lastBlockObj != null)
+            //         if (m_lastBlockObj != hitInfo.transform.gameObject)
+            //         {
+            //             var lastRenderer = m_lastBlockObj.GetComponent<Renderer>();
+            //             lastRenderer.material = m_lastBlockObjMat;
+            //         }
+            //
+            //     var curRenderer = hitInfo.transform.GetComponent<Renderer>();
+            //     m_lastBlockObj = hitInfo.transform.gameObject;
+            //     m_lastBlockObjMat = curRenderer.material;
+            //     curRenderer.material = m_BlockCameraMat;
+            // }
         }
 
         public void LookProcess(Vector2 value)

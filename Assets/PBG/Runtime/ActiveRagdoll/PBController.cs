@@ -23,6 +23,8 @@ namespace PBG.Runtime
         private bool m_MoveEnabled = true;
         private bool m_IsSpeedUp = false;
 
+        private float m_FallingTime = 0f;
+
         private void OnValidate()
         {
             if (m_AnimSyncPhysics == null) m_AnimSyncPhysics = GetComponent<AnimationSyncPhysics>();
@@ -66,6 +68,18 @@ namespace PBG.Runtime
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
 
+            if (!m_PhysicsSyncAnim.IsOnGround)
+            {
+                m_FallingTime += Time.deltaTime;
+                if (m_FallingTime > 1f)
+                {
+                    m_MoveEnabled = false;
+                    m_ActiveRagdoll.SetAngularDriveScale(0.1f);
+                    m_ActiveRagdoll.PhysicalTorso.constraints = 0;
+                    m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
+                }
+            }
+
             if (m_Movement == Vector2.zero || !m_MoveEnabled)
             {
                 m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", false);
@@ -76,6 +90,8 @@ namespace PBG.Runtime
                 if (!m_PhysicsSyncAnim.IsOnGround)
                     return;
             }
+
+            m_FallingTime = 0f;
 
             m_Speed =
                 Mathf.Lerp(m_Speed, m_IsSpeedUp ? MaxSpeed : MinSpeed, SpeedTransSpeed * Time.deltaTime);
@@ -109,16 +125,16 @@ namespace PBG.Runtime
                 m_ActiveRagdoll.PhysicalTorso.constraints = RigidbodyConstraints.FreezeRotation;
                 m_ActiveRagdoll.AnimatedAnimator.Play("Idle");
             }
-            else
-            {
-                if (!m_PhysicsSyncAnim.IsJumping)
-                {
-                    m_MoveEnabled = false;
-                    m_ActiveRagdoll.SetAngularDriveScale(0.1f);
-                    m_ActiveRagdoll.PhysicalTorso.constraints = 0;
-                    m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
-                }
-            }
+            // else
+            // {
+            //     if (!m_PhysicsSyncAnim.IsJumping)
+            //     {
+            //         m_MoveEnabled = false;
+            //         m_ActiveRagdoll.SetAngularDriveScale(0.1f);
+            //         m_ActiveRagdoll.PhysicalTorso.constraints = 0;
+            //         m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
+            //     }
+            // }
         }
     }
 }
