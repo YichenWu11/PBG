@@ -11,44 +11,80 @@ namespace PBG.Runtime.Util
         [SerializeField] private HingeJoint m_LJoint;
         [SerializeField] private HingeJoint m_RJoint;
 
-        private JointLimits m_LOpen;
-        private JointLimits m_ROpen;
-        private JointLimits m_Close;
+        private JointMotor m_LOpen;
+        private JointMotor m_ROpen;
+        private JointMotor m_LClose;
+        private JointMotor m_RClose;
+
+        public float OpenSpeed = 50f;
 
         public bool OpenOrClose = false; // true for open & false for close
+
+        private float m_LTargetPosX = -0.25f;
+        private float m_RTargetPosX = 0.25f;
+
+        [SerializeField] private Rigidbody m_Lrb;
+        [SerializeField] private Rigidbody m_Rrb;
 
         private void OnValidate()
         {
             var joints = GetComponentsInChildren<HingeJoint>();
             m_LJoint = joints[0];
             m_RJoint = joints[1];
+            var rbs = GetComponentsInChildren<Rigidbody>();
+            m_Lrb = rbs[0];
+            m_Rrb = rbs[1];
         }
 
         private void Start()
         {
-            m_LOpen = new JointLimits()
+            m_LJoint.useMotor = true;
+            m_RJoint.useMotor = true;
+            m_LOpen = new JointMotor()
             {
-                min = -90f,
-                max = 0f
+                targetVelocity = -OpenSpeed,
+                force = 10f
             };
-            m_ROpen = new JointLimits()
+            m_ROpen = new JointMotor()
             {
-                min = 0f,
-                max = 90f
+                targetVelocity = OpenSpeed,
+                force = 10f
             };
-            m_Close = new JointLimits()
+            m_LClose = new JointMotor()
             {
-                min = 0f,
-                max = 0f
+                targetVelocity = OpenSpeed,
+                force = 10f
             };
+            m_RClose = new JointMotor()
+            {
+                targetVelocity = -OpenSpeed,
+                force = 10f
+            };
+
+            m_Lrb.isKinematic = true;
+            m_Rrb.isKinematic = true;
+
             if (m_ButtonTrigger != null)
-                m_ButtonTrigger.OnButtonTriggered += isPressed => OpenOrClose = isPressed;
+                m_ButtonTrigger.OnButtonTriggered += OpenCloseProcess;
         }
 
         private void Update()
         {
-            m_LJoint.limits = OpenOrClose ? m_LOpen : m_Close;
-            m_RJoint.limits = OpenOrClose ? m_ROpen : m_Close;
+            m_LJoint.motor = OpenOrClose ? m_LOpen : m_LClose;
+            m_RJoint.motor = OpenOrClose ? m_ROpen : m_RClose;
+            if (Mathf.Approximately(m_Lrb.transform.localPosition.x, m_LTargetPosX))
+                m_Lrb.isKinematic = true;
+            if (Mathf.Approximately(m_Rrb.transform.localPosition.x, m_RTargetPosX))
+                m_Rrb.isKinematic = true;
+        }
+
+        private void OpenCloseProcess(bool isPressed)
+        {
+            OpenOrClose = isPressed;
+            m_Lrb.isKinematic = false;
+            m_Rrb.isKinematic = false;
+            m_LTargetPosX = isPressed ? -0.525f : -0.25f;
+            m_RTargetPosX = isPressed ? 0.525f : 0.25f;
         }
     }
 }

@@ -356,6 +356,8 @@ MonoBehaviour:
     m_Bits: 8960
   CameraRepositionOffset: 0.15
   m_BlockCameraMat: {fileID: 2100000, guid: fbd6ba73154b8a24c8fdcedf4641010a, type: 2}
+  m_lastBlockObj: {fileID: 0}
+  m_lastBlockObjMat: {fileID: 0}
 --- !u!114 &4486762911083098161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1819,7 +1821,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 979aef027a1c86c42a15ce35fce366fa, type: 2}
+  - {fileID: 2100000, guid: 55bcb8e1268c09e49b9e01a35dee0338, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2272,7 +2274,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 0e9a428405a52cf43b95ab206dd3babd, type: 3}
+  - {fileID: 2100000, guid: 6b911390c5825014e8377183a7837d3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

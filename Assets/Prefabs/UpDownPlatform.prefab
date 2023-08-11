@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e12b7d0f043e744f9b8b31efaa84f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ButtonTrigger: []
   MoveDirection: {x: 0, y: 0, z: 1}
   MoveDistance: 5
   MoveSpeed: 1
@@ -112,7 +113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f5504b2dcecb1294eacde548277f67f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

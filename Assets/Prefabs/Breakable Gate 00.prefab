@@ -49,8 +49,8 @@ MonoBehaviour:
   chunks: 250
   density: 50
   internalStrength: 50
-  insideMaterial: {fileID: -3661639628750336703, guid: 7e0223e1d3e1733499accfa5ebffb67e, type: 3}
-  outsideMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
+  insideMaterial: {fileID: 2100000, guid: 7e451a94e6eaac34db05cedecc3e0202, type: 2}
+  outsideMaterial: {fileID: 2100000, guid: 4312c7ceb0c7bbb489844a06e6fb19c9, type: 2}
 --- !u!1 &886185472641159146
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7cd93faf0379a454f8fab9a5b4cf5d2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

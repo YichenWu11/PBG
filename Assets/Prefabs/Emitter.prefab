@@ -49,12 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6c7169c1fcadf49b09957ea71ffa74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ElapsedTime: 0
   m_EmitInterval: 2
   m_Radius: 0.1
   m_Velocity: 1000
   m_Mass: 0.5
-  m_BallMaterial: {fileID: 2100000, guid: 4589b87b8508f6e48b8fddb385924b16, type: 2}
+  m_BallMaterial: {fileID: 2100000, guid: 6a28734fd8cf4154187a16385563965c, type: 2}
 --- !u!65 &9136477165093890536
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
+  - {fileID: 2100000, guid: 55bcb8e1268c09e49b9e01a35dee0338, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -259,7 +258,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ff188f58422043f489060e28a5e4e0c0, type: 2}
+  - {fileID: 2100000, guid: 974bc5f1edd92417780dd3e3959a7d0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
