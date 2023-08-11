@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace PBG.Runtime.Util
         private ConfigurableJoint m_Joint;
         private Grabable m_Grabbed;
 
-        public bool IsGrabbing => m_Grabbed != null;
+        public bool IsGrabbing => m_Joint != null;
 
         public void Start()
         {
@@ -33,8 +34,9 @@ namespace PBG.Runtime.Util
             if (whatToGrab.transform.IsChildOf(GrabCtrl.ActiveRagdoll.transform))
                 return;
 
-            var layerMask = LayerMask.NameToLayer("FrozenGrab");
-            if (whatToGrab.gameObject.layer == layerMask)
+            var layerMask0 = LayerMask.NameToLayer("FrozenGrab");
+            var layerMask1 = LayerMask.NameToLayer("InnerTrigger");
+            if (whatToGrab.gameObject.layer == layerMask0 || whatToGrab.gameObject.layer == layerMask1)
                 return;
 
             // Debug.Log(

@@ -120,6 +120,12 @@ namespace PBG.Runtime
                 armsMiddleTarget + armsHorizontalVec * ArmsHorizontalSeparation / 2;
             m_IKControl.RightHandIKTarget.position =
                 armsMiddleTarget - armsHorizontalVec * ArmsHorizontalSeparation / 2;
+
+            var armsUpVec = Vector3.Cross(armsDir, m_AnimatedTorso.right).normalized;
+            m_IKControl.LeftHandHint.position =
+                armsMiddleTarget + armsHorizontalVec * ArmsHorizontalSeparation - armsUpVec;
+            m_IKControl.RightHandHint.position =
+                armsMiddleTarget - armsHorizontalVec * ArmsHorizontalSeparation - armsUpVec;
         }
 
         public void LeftArmProcess(float value)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6444630457668850854}
   - component: {fileID: 6444630457668850849}
   - component: {fileID: 6444630457668850848}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f58fbc8133e4ec439dee0e724d843b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ButtonBody: {fileID: 6444630457846159229}
 --- !u!1 &6444630457846159229
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 967807bb71a11344b97fa547392d9e99, type: 2}
+  - {fileID: 2100000, guid: e86ef580ca4578442a99b2b3e4ecd8e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

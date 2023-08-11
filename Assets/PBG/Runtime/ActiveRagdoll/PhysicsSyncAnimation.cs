@@ -23,6 +23,7 @@ namespace PBG.Runtime
         public bool WantToJump { get; set; } = false;
         public bool IsJumping { get; set; } = false;
         public bool IsOnGround { get; set; } = true;
+        public bool IsDragSelfUp { get; set; } = false;
 
         public float SpeedUpRatio { get; set; } = 0;
 
@@ -66,6 +67,11 @@ namespace PBG.Runtime
             m_ActiveRagdoll.PhysicalTorso.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
+        private void Update()
+        {
+            // Debug.Log($"{IsGrabbing} {m_GrabControl.IsGrabbing}");
+        }
+
         private void FixedUpdate()
         {
             // SpeedingUp By SpeedUpRatio
@@ -78,16 +84,27 @@ namespace PBG.Runtime
                 m_ActiveRagdoll.PhysicalTorso.velocity = curVel;
             }
 
+            // if (IsDragSelfUp)
+            // {
+            //     var rotationQuaternion = Quaternion.AngleAxis(45, m_ActiveRagdoll.PhysicalTorso.transform.right);
+            //     var dragUpDir =
+            //         rotationQuaternion * m_ActiveRagdoll.PhysicalTorso.transform.forward;
+            //
+            //     m_ActiveRagdoll.PhysicalTorso.AddForce(
+            //         1600f * m_ShakeDir * dragUpDir,
+            //         ForceMode.Force);
+            // }
+
             if (IsOnGround && WantToJump)
             {
                 m_ActiveRagdoll.PhysicalTorso.AddForce(Vector3.up * m_JumpImpluse, ForceMode.Impulse);
                 WantToJump = false;
             }
 
-            if (!IsOnGround && IsGrabbing)
-                m_ActiveRagdoll.PhysicalTorso.AddForce(
-                    m_ShakeImpluse * m_ShakeDir * m_ActiveRagdoll.PhysicalTorso.transform.forward,
-                    ForceMode.Force);
+            // if (!IsOnGround && IsGrabbing)
+            //     m_ActiveRagdoll.PhysicalTorso.AddForce(
+            //         m_ShakeImpluse * m_ShakeDir * m_ActiveRagdoll.PhysicalTorso.transform.forward,
+            //         ForceMode.Force);
 
             KeepBalance();
             SyncWithAnimation();

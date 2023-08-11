@@ -25,6 +25,8 @@ namespace PBG.Runtime
         private GameObject m_AllTargets;
         public Transform LeftHandIKTarget { get; set; }
         public Transform RightHandIKTarget { get; set; }
+        public Transform LeftHandHint { get; set; }
+        public Transform RightHandHint { get; set; }
 
         private void Start()
         {
@@ -34,6 +36,11 @@ namespace PBG.Runtime
             LeftHandIKTarget.transform.parent = m_AllTargets.transform;
             RightHandIKTarget = new GameObject("RightHandIKTarget").transform;
             RightHandIKTarget.transform.parent = m_AllTargets.transform;
+
+            LeftHandHint = new GameObject("LeftHandHint").transform;
+            LeftHandHint.transform.parent = m_AllTargets.transform;
+            RightHandHint = new GameObject("RightHandHint").transform;
+            RightHandHint.transform.parent = m_AllTargets.transform;
         }
 
         private void Update()
@@ -51,14 +58,20 @@ namespace PBG.Runtime
             // Left Arm
             m_Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, m_LeftArmIKWeight);
             m_Animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, m_LeftArmIKWeight);
+            m_Animator.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, LeftArmIKWeight);
+
             m_Animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandIKTarget.position);
             m_Animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandIKTarget.rotation);
+            m_Animator.SetIKHintPosition(AvatarIKHint.LeftElbow, LeftHandHint.position);
 
             // Right Arm
             m_Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, m_RightArmIKWeight);
             m_Animator.SetIKRotationWeight(AvatarIKGoal.RightHand, m_RightArmIKWeight);
+            m_Animator.SetIKHintPositionWeight(AvatarIKHint.RightElbow, RightArmIKWeight);
+
             m_Animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandIKTarget.position);
             m_Animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandIKTarget.rotation);
+            m_Animator.SetIKHintPosition(AvatarIKHint.RightElbow, RightHandHint.position);
         }
     }
 }

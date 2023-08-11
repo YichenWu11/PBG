@@ -11,6 +11,8 @@ namespace PBG.Runtime.Util
         [SerializeField] private HingeJoint m_LJoint;
         [SerializeField] private HingeJoint m_RJoint;
 
+        public bool DirectOpen = false; // 如果为 true, 只要关联的按钮被按下一次后就永久打开
+
         private JointMotor m_LOpen;
         private JointMotor m_ROpen;
         private JointMotor m_LClose;
@@ -65,7 +67,12 @@ namespace PBG.Runtime.Util
             m_Rrb.isKinematic = true;
 
             if (m_ButtonTrigger != null)
-                m_ButtonTrigger.OnButtonTriggered += OpenCloseProcess;
+            {
+                if (DirectOpen)
+                    m_ButtonTrigger.OnButtonTriggeredEnterOnly += value => OpenCloseProcess(true);
+                else
+                    m_ButtonTrigger.OnButtonTriggered += OpenCloseProcess;
+            }
         }
 
         private void Update()

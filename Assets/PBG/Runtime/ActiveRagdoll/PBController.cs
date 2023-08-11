@@ -62,13 +62,7 @@ namespace PBG.Runtime
                 OnGroundChangedProcess(m_ActiveRagdoll.Input.IsOnGround);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-                Cursor.visible = !Cursor.visible;
-            // Quit Game
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Application.Quit();
-
-            if (!m_PhysicsSyncAnim.IsOnGround)
+            if (!m_PhysicsSyncAnim.IsOnGround && !m_PhysicsSyncAnim.IsGrabbing)
             {
                 m_FallingTime += Time.deltaTime;
                 if (m_FallingTime > 1f)
@@ -80,15 +74,18 @@ namespace PBG.Runtime
                 }
             }
 
+            m_PhysicsSyncAnim.IsDragSelfUp = !m_PhysicsSyncAnim.IsOnGround && m_PhysicsSyncAnim.IsGrabbing;
+
             if (m_Movement == Vector2.zero || !m_MoveEnabled)
             {
                 m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", false);
                 m_Speed = 0f;
                 m_PhysicsSyncAnim.SpeedUpRatio = -1f;
-                if (!m_PhysicsSyncAnim.IsGrabbing)
-                    return;
-                if (!m_PhysicsSyncAnim.IsOnGround)
-                    return;
+                // if (!m_PhysicsSyncAnim.IsGrabbing)
+                //     return;
+                // if (!m_PhysicsSyncAnim.IsOnGround)
+                //     return;
+                return;
             }
 
             m_FallingTime = 0f;
@@ -112,7 +109,7 @@ namespace PBG.Runtime
 
         private void MovementProcess(Vector2 value)
         {
-            m_Movement = m_PhysicsSyncAnim.IsGrabbing ? Vector2.zero : value;
+            m_Movement = value;
         }
 
         private void OnGroundChangedProcess(bool isOnGround)
@@ -125,16 +122,6 @@ namespace PBG.Runtime
                 m_ActiveRagdoll.PhysicalTorso.constraints = RigidbodyConstraints.FreezeRotation;
                 m_ActiveRagdoll.AnimatedAnimator.Play("Idle");
             }
-            // else
-            // {
-            //     if (!m_PhysicsSyncAnim.IsJumping)
-            //     {
-            //         m_MoveEnabled = false;
-            //         m_ActiveRagdoll.SetAngularDriveScale(0.1f);
-            //         m_ActiveRagdoll.PhysicalTorso.constraints = 0;
-            //         m_ActiveRagdoll.AnimatedAnimator.Play("InTheAir");
-            //     }
-            // }
         }
     }
 }
