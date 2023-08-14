@@ -12,6 +12,7 @@ namespace PBG.Runtime.Util
         private Rigidbody m_LastCollision;
         private ConfigurableJoint m_Joint;
         private Grabable m_Grabbed;
+        public Rigidbody GrabbedRb;
 
         public bool IsGrabbing => m_Joint != null;
 
@@ -52,6 +53,8 @@ namespace PBG.Runtime.Util
                 m_Grabbed.JointMotionsCfg.ApplyTo(ref m_Joint);
             else
                 GrabCtrl.DefaultMotionsCfg.ApplyTo(ref m_Joint);
+
+            GrabbedRb = whatToGrab;
         }
 
         private void UnGrip()
@@ -62,6 +65,7 @@ namespace PBG.Runtime.Util
             Destroy(m_Joint);
             m_Joint = null;
             m_Grabbed = null;
+            GrabbedRb = null;
         }
 
         private void OnCollisionEnter(Collision collision)

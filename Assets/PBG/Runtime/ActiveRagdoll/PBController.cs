@@ -74,6 +74,12 @@ namespace PBG.Runtime
                 }
             }
 
+            m_MoveEnabled = m_PhysicsSyncAnim.IsOnGround;
+
+            // 由于目前人物只能沿着 Forward 方向前进，为了防止人物抓住 Kinematic 的墙体后向后走导致身体扭曲，加上以下代码
+            if (m_GrabControl.IsGrabKinematic)
+                m_Movement.y = Mathf.Abs(m_Movement.y);
+
             m_PhysicsSyncAnim.IsDragSelfUp = !m_PhysicsSyncAnim.IsOnGround && m_PhysicsSyncAnim.IsGrabbing;
 
             if (m_Movement == Vector2.zero || !m_MoveEnabled)

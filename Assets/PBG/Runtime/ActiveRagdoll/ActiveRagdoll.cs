@@ -80,23 +80,23 @@ namespace PBG.Runtime
 
         private void Start()
         {
-            // foreach (var joint in Joints)
-            // {
-            //     var xDrive = new JointDrive()
-            //     {
-            //         positionSpring = joint.angularXDrive.positionSpring,
-            //         positionDamper = joint.angularXDrive.positionDamper * 10,
-            //         maximumForce = joint.angularXDrive.maximumForce
-            //     };
-            //     var yzDrive = new JointDrive()
-            //     {
-            //         positionSpring = joint.angularYZDrive.positionSpring,
-            //         positionDamper = joint.angularYZDrive.positionDamper * 10,
-            //         maximumForce = joint.angularYZDrive.maximumForce
-            //     };
-            //     joint.angularXDrive = xDrive;
-            //     joint.angularYZDrive = yzDrive;
-            // }
+            foreach (var joint in Joints)
+            {
+                var xDrive = new JointDrive()
+                {
+                    positionSpring = joint.angularXDrive.positionSpring,
+                    positionDamper = joint.angularXDrive.positionDamper * 3f,
+                    maximumForce = joint.angularXDrive.maximumForce
+                };
+                var yzDrive = new JointDrive()
+                {
+                    positionSpring = joint.angularYZDrive.positionSpring,
+                    positionDamper = joint.angularYZDrive.positionDamper * 3f,
+                    maximumForce = joint.angularYZDrive.maximumForce
+                };
+                joint.angularXDrive = xDrive;
+                joint.angularYZDrive = yzDrive;
+            }
         }
 
         public void SetAngularDriveScale(float scale)

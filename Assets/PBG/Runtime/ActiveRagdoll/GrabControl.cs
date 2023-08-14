@@ -17,6 +17,10 @@ public class GrabControl : MonoBehaviour
 
     public bool IsGrabbing => m_LeftGrab.IsGrabbing || m_RightGrab.IsGrabbing;
 
+    public bool IsGrabKinematic =>
+        (m_LeftGrab.GrabbedRb && m_LeftGrab.GrabbedRb.isKinematic) ||
+        (m_RightGrab.GrabbedRb && m_RightGrab.GrabbedRb.isKinematic);
+
     private void Awake()
     {
         if (ActiveRagdoll == null) ActiveRagdoll = GetComponent<ActiveRagdoll>();
@@ -29,6 +33,10 @@ public class GrabControl : MonoBehaviour
 
         (m_LeftGrab = leftHand.AddComponent<Grabber>()).GrabCtrl = this;
         (m_RightGrab = rightHand.AddComponent<Grabber>()).GrabCtrl = this;
+    }
+
+    private void Update()
+    {
     }
 
 

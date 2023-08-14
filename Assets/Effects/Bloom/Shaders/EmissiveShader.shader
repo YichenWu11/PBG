@@ -50,7 +50,7 @@ Shader "Unlit/EmissiveShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return fixed4(1,1,1,1) * _EmissiveColor * _EmissiveIntensity;
+                return tex2D(_MainTex, i.uv) * _EmissiveColor * _EmissiveIntensity;
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog

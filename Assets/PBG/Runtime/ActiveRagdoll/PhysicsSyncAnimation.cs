@@ -110,10 +110,11 @@ namespace PBG.Runtime
             SyncWithAnimation();
 
             var forceDir = CalculateSlopeDirection();
-            if (forceDir != Vector3.zero && Vector3.Dot(m_TargetDirection, forceDir) > -0.5f)
+            if (forceDir != Vector3.zero)
             {
+                var sign = Vector3.Dot(m_TargetDirection, forceDir) > 0f ? 1f : -1f;
                 // 从 MinAngle 到 MaxAngle 插值
-                var forceMagnitude = Mathf.Lerp(4f, 12f, Vector3.Angle(forceDir, Vector3.forward));
+                var forceMagnitude = sign * Mathf.Lerp(4f, 12f, Vector3.Angle(forceDir, Vector3.forward));
                 m_ActiveRagdoll.PhysicalTorso.AddForce(forceDir * forceMagnitude, ForceMode.Impulse);
             }
         }
