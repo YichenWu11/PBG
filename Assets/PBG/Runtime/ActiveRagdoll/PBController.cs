@@ -27,6 +27,8 @@ namespace PBG.Runtime
         [Header("-- Buff --")] public bool HasBuff = false;
         public bool IsBuffEnabled = false;
 
+        [Header("-- State --")] public bool IsEnd = false;
+
         private Vector2 m_Movement;
         private float m_Speed = 1f;
         private bool m_MoveEnabled = true;
@@ -151,7 +153,7 @@ namespace PBG.Runtime
             {
                 MyGlasses.SetActive(!MyGlasses.activeSelf);
                 IsBuffEnabled = !IsBuffEnabled;
-                m_WorldMngr.ToggleVolumeEnabled();
+                m_WorldMngr.ToggleVolumeColorGrading();
                 m_WorldMngr.ToggleInvisibleObjectsVis();
             }
         }

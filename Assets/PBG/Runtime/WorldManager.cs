@@ -31,9 +31,11 @@ public class WorldManager : MonoBehaviour
         CheckAndRebirth();
     }
 
-    public void ToggleVolumeEnabled()
+    public void ToggleVolumeColorGrading()
     {
-        Volume.enabled = !Volume.enabled;
+        ColorGrading colorGrading;
+        if (Volume.profile.TryGetSettings(out colorGrading))
+            colorGrading.enabled.value = !colorGrading.enabled.value;
     }
 
     public void ToggleInvisibleObjectsVis()

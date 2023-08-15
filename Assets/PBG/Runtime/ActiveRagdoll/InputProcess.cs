@@ -25,6 +25,8 @@ public class InputProcess : MonoBehaviour
     private Rigidbody m_LeftFoot;
     private Rigidbody m_RightFoot;
 
+    public UIManager uiManager;
+
     public bool IsOnGround { get; set; }
 
     [SerializeField] private float m_OnGroundDetectionDistance = 0.1f;
@@ -55,11 +57,15 @@ public class InputProcess : MonoBehaviour
 
     public void OnLook(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         onLook?.Invoke(value.Get<Vector2>());
     }
 
     public void OnScrollWheel(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         onScrollWheel?.Invoke(value.Get<Vector2>());
     }
 

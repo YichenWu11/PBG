@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3239818356663944405}
   - component: {fileID: 3611892485032172872}
   - component: {fileID: 3248463752673461550}
+  - component: {fileID: 3355128309284271115}
   - component: {fileID: 2901133992348839009}
   m_Layer: 8
   m_Name: ThirdPersonCamera
@@ -99,6 +100,19 @@ MonoBehaviour:
   bloomIntensity: 0.05
   debugFlag: 0
   mipDebugIndex: 0
+--- !u!114 &3355128309284271115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20856778162315827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6683b63a7720c8543bd9d727f2e3edfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlurMat: {fileID: 0}
 --- !u!114 &2901133992348839009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +465,7 @@ MonoBehaviour:
   SpeedTransSpeed: 2.5
   HasBuff: 0
   IsBuffEnabled: 0
+  IsEnd: 0
 --- !u!114 &4486762911083098160
 MonoBehaviour:
   m_ObjectHideFlags: 0

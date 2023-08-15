@@ -31,26 +31,16 @@ namespace PBG.Runtime
         public LayerMask DontBlockCamera;
         public float CameraRepositionOffset = 0.15f;
 
-        private void OnValidate()
-        {
-            if (m_ActiveRagdoll == null)
-                m_ActiveRagdoll = GetComponent<ActiveRagdoll>();
-            if (LookAtPoint == null)
-                LookAtPoint = m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.Head);
-        }
-
         private void Start()
         {
-            // Camera = new GameObject("ThirdPersonCamera", typeof(Camera));
-            // Camera.transform.parent = transform;
-            //
             // // Bloom
             // var bloom = Camera.AddComponent<Bloom>();
             // bloom.useKarisAverage = true;
-            // bloom.luminanceThreshole = 2.0f;
+            // bloom.luminanceThreshold = 2.0f;
             // bloom.bloomIntensity = 0.05f;
 
             Camera.GetComponent<Bloom>().enabled = true;
+            Camera.GetComponent<Blur>().enabled = false;
 
             m_SmoothedLookPoint = LookAtPoint.position;
             m_StartDirection = LookAtPoint.forward;

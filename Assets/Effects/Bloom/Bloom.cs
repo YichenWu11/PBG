@@ -29,7 +29,6 @@ public class Bloom : MonoBehaviour
     [Space(20)] public BloomDebugFlag debugFlag;
     [Range(0, 6)] public int mipDebugIndex = 0;
 
-
     // Start is called before the first frame update
     private void Start()
     {
