@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace PBG.Runtime
 {
@@ -40,12 +41,16 @@ namespace PBG.Runtime
 
         private void Start()
         {
-            Camera = new GameObject("ThirdPersonCamera", typeof(Camera));
-            Camera.transform.parent = transform;
-            var bloom = Camera.AddComponent<Bloom>();
-            bloom.useKarisAverage = true;
-            bloom.luminanceThreshole = 2.0f;
-            bloom.bloomIntensity = 0.05f;
+            // Camera = new GameObject("ThirdPersonCamera", typeof(Camera));
+            // Camera.transform.parent = transform;
+            //
+            // // Bloom
+            // var bloom = Camera.AddComponent<Bloom>();
+            // bloom.useKarisAverage = true;
+            // bloom.luminanceThreshole = 2.0f;
+            // bloom.bloomIntensity = 0.05f;
+
+            Camera.GetComponent<Bloom>().enabled = true;
 
             m_SmoothedLookPoint = LookAtPoint.position;
             m_StartDirection = LookAtPoint.forward;

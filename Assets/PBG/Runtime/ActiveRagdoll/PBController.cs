@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace PBG.Runtime
@@ -8,15 +9,23 @@ namespace PBG.Runtime
     // Physics Based Controller
     public class PBController : MonoBehaviour
     {
-        [SerializeField] private ActiveRagdoll m_ActiveRagdoll;
+        [Header("-- Components --")] [SerializeField]
+        private ActiveRagdoll m_ActiveRagdoll;
+
         [SerializeField] private AnimationSyncPhysics m_AnimSyncPhysics;
         [SerializeField] private PhysicsSyncAnimation m_PhysicsSyncAnim;
         [SerializeField] private ThirdPersonCamera m_ThirdPersonCamera;
         [SerializeField] private GrabControl m_GrabControl;
+        [SerializeField] private WorldManager m_WorldMngr;
 
-        public float MaxSpeed = 2.5f;
+        [SerializeField] private GameObject MyGlasses;
+
+        [Header("-- Movement --")] public float MaxSpeed = 2.5f;
         public float MinSpeed = 1.25f;
         public float SpeedTransSpeed = 1f;
+
+        [Header("-- Buff --")] public bool HasBuff = false;
+        public bool IsBuffEnabled = false;
 
         private Vector2 m_Movement;
         private float m_Speed = 1f;
@@ -36,6 +45,8 @@ namespace PBG.Runtime
 
         private void Start()
         {
+            MyGlasses.SetActive(false);
+
             // move
             m_ActiveRagdoll.Input.onMove += MovementProcess;
             m_ActiveRagdoll.Input.onSprint += isSpeedUp => m_IsSpeedUp = isSpeedUp && m_Movement != Vector2.zero;
@@ -52,6 +63,9 @@ namespace PBG.Runtime
             m_ActiveRagdoll.Input.onLeftArm += m_GrabControl.UseLeftGrab;
             m_ActiveRagdoll.Input.onRightArm += m_AnimSyncPhysics.RightArmProcess;
             m_ActiveRagdoll.Input.onRightArm += m_GrabControl.UseRightGrab;
+
+            // Buff
+            m_ActiveRagdoll.Input.onBuff += ProcessBuff;
         }
 
         private void Update()
@@ -87,10 +101,6 @@ namespace PBG.Runtime
                 m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", false);
                 m_Speed = 0f;
                 m_PhysicsSyncAnim.SpeedUpRatio = -1f;
-                // if (!m_PhysicsSyncAnim.IsGrabbing)
-                //     return;
-                // if (!m_PhysicsSyncAnim.IsOnGround)
-                //     return;
                 return;
             }
 
@@ -98,6 +108,11 @@ namespace PBG.Runtime
 
             m_Speed =
                 Mathf.Lerp(m_Speed, m_IsSpeedUp ? MaxSpeed : MinSpeed, SpeedTransSpeed * Time.deltaTime);
+
+            // 如果开启了 Buff，速度就变慢
+            if (HasBuff && IsBuffEnabled)
+                m_Speed = 0.5f;
+
             m_PhysicsSyncAnim.SpeedUpRatio = (m_Speed - MinSpeed) / (MaxSpeed - MinSpeed);
 
             m_ActiveRagdoll.AnimatedAnimator.SetBool("moving", true);
@@ -127,6 +142,17 @@ namespace PBG.Runtime
                 m_ActiveRagdoll.SetAngularDriveScale(1.0f);
                 m_ActiveRagdoll.PhysicalTorso.constraints = RigidbodyConstraints.FreezeRotation;
                 m_ActiveRagdoll.AnimatedAnimator.Play("Idle");
+            }
+        }
+
+        private void ProcessBuff(bool value)
+        {
+            if (HasBuff)
+            {
+                MyGlasses.SetActive(!MyGlasses.activeSelf);
+                IsBuffEnabled = !IsBuffEnabled;
+                m_WorldMngr.ToggleVolumeEnabled();
+                m_WorldMngr.ToggleInvisibleObjectsVis();
             }
         }
     }

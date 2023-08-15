@@ -24,6 +24,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Buff",
+                    "type": "Value",
+                    "id": "14ded131-4934-4240-9179-1d40aca930e2",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "ScrollWheel",
                     "type": "PassThrough",
                     "id": "4df4dcf9-2fda-4e1a-a779-ef46eec5603b",
@@ -301,12 +310,56 @@
                 },
                 {
                     "name": "",
+                    "id": "f51559f4-d71a-48b8-b261-6377e0079b4f",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7cb14176-928e-4f83-b8a0-5a3d695f0e25",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8cb817a3-46fc-4b8d-8d55-aa1178d3f3b0",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db4a57e8-92e2-488a-b403-6275690302be",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Buff",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "193da72d-f3d1-468c-8eca-4d2125382fa8",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Buff",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

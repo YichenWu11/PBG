@@ -1,29 +1,45 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class WorldManager : MonoBehaviour
 {
     public GameObject PlayerTorso;
     public GameObject GameWorld;
     public StartPoint CurStartPoint;
+    public PostProcessVolume Volume;
+
+    public List<InvisibleObject> InvisibleObjects;
 
     public float FallRoundDis = 10f;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
             Cursor.visible = !Cursor.visible;
+
         // Quit Game
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
         CheckAndRebirth();
+    }
+
+    public void ToggleVolumeEnabled()
+    {
+        Volume.enabled = !Volume.enabled;
+    }
+
+    public void ToggleInvisibleObjectsVis()
+    {
+        foreach (var invisible in InvisibleObjects)
+            invisible.Visibility = !invisible.Visibility;
     }
 
     private void CheckAndRebirth()

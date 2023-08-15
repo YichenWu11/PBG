@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using PBG.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,6 +7,8 @@ using UnityEngine.InputSystem;
 public class InputProcess : MonoBehaviour
 {
     [SerializeField] private ActiveRagdoll m_ActiveRagdoll;
+
+    public bool VibrateEnabled = false;
 
     public Action<Vector2> onMove;
     public Action<Vector2> onLook;
@@ -15,6 +18,7 @@ public class InputProcess : MonoBehaviour
     public Action<float> onRightArm;
     public Action<bool> onJump;
     public Action<bool> onDebug;
+    public Action<bool> onBuff;
 
     public Action<bool> onGroundChanged;
 
@@ -64,14 +68,25 @@ public class InputProcess : MonoBehaviour
         onSprint?.Invoke(value.isPressed);
     }
 
+    public void OnBuff(InputValue value)
+    {
+        if (value.Get<float>() == 1.0f)
+            onBuff?.Invoke(value.isPressed);
+    }
 
     public void OnLeftArm(InputValue value)
     {
+        // 手柄震动
+        if (VibrateEnabled && value.Get<float>() == 1.0f)
+            GamepadVibrate(0f, 3f, 0.15f);
         onLeftArm?.Invoke(value.Get<float>());
     }
 
     public void OnRightArm(InputValue value)
     {
+        // 手柄震动
+        if (VibrateEnabled && value.Get<float>() == 1.0f)
+            GamepadVibrate(0f, 3f, 0.15f);
         onRightArm?.Invoke(value.Get<float>());
     }
 
@@ -107,5 +122,34 @@ public class InputProcess : MonoBehaviour
 
         normal = info.normal;
         return onFloor;
+    }
+
+
+    public void GamepadVibrate(float low, float high, float time)
+    {
+        StartCoroutine(IEGamepadVibrate(low, high, time));
+    }
+
+    private IEnumerator IEGamepadVibrate(float low, float high, float time)
+    {
+        //防止因未连接手柄造成的 DebugError
+        if (Gamepad.current == null)
+            yield break;
+
+        //设置手柄的 震动速度 以及 恢复震动 , 计时到达之后暂停震动
+        Gamepad.current.SetMotorSpeeds(low, high);
+        Gamepad.current.ResumeHaptics();
+        var endTime = Time.time + time;
+
+        while (Time.time < endTime)
+        {
+            Gamepad.current.ResumeHaptics();
+            yield return null;
+        }
+
+        if (Gamepad.current == null)
+            yield break;
+
+        Gamepad.current.PauseHaptics();
     }
 }
