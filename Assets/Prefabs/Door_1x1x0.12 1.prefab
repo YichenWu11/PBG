@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7854899907694165646}
   - component: {fileID: 4110930994291754382}
   - component: {fileID: 529792841354785894}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Handle.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5225227993404577072}
   - component: {fileID: 5225227993404577079}
   - component: {fileID: 5225227993404577078}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Stub.R.Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 2627881364562910610}
   - component: {fileID: 8044544812877799656}
   - component: {fileID: 6546600425044429415}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Handle.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 6943013908059820192}
   - component: {fileID: 6943013908059820193}
   - component: {fileID: 6943013908059820198}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Stub.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6943013908994094119}
   - component: {fileID: 6943013908994094118}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door_1x1x0.12 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,8 +457,11 @@ MonoBehaviour:
   m_ButtonTrigger: {fileID: 0}
   m_LJoint: {fileID: 6943013909397401870}
   m_RJoint: {fileID: 6943013909415057054}
+  DirectOpen: 0
   OpenSpeed: 120
   OpenOrClose: 0
+  m_Lrb: {fileID: 6943013909397401869}
+  m_Rrb: {fileID: 6943013909415057055}
 --- !u!1 &6943013909397401867
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +476,7 @@ GameObject:
   - component: {fileID: 6943013909397401865}
   - component: {fileID: 6943013909397401869}
   - component: {fileID: 6943013909397401870}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +628,7 @@ GameObject:
   - component: {fileID: 6943013909415057050}
   - component: {fileID: 6943013909415057055}
   - component: {fileID: 6943013909415057054}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +779,7 @@ GameObject:
   - component: {fileID: 6943013909439294037}
   - component: {fileID: 6943013909439294038}
   - component: {fileID: 6943013909439294043}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Stub.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

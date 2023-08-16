@@ -76,12 +76,16 @@ public class InputProcess : MonoBehaviour
 
     public void OnBuff(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         if (value.Get<float>() == 1.0f)
             onBuff?.Invoke(value.isPressed);
     }
 
     public void OnLeftArm(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         // 手柄震动
         if (VibrateEnabled && value.Get<float>() == 1.0f)
             GamepadVibrate(0f, 3f, 0.15f);
@@ -90,6 +94,8 @@ public class InputProcess : MonoBehaviour
 
     public void OnRightArm(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         // 手柄震动
         if (VibrateEnabled && value.Get<float>() == 1.0f)
             GamepadVibrate(0f, 3f, 0.15f);

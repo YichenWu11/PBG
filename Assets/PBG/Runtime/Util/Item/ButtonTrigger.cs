@@ -14,7 +14,7 @@ namespace PBG.Runtime.Util
         [SerializeField] private GameObject m_ButtonBody;
         private Material m_ButtonBodyMat;
 
-        private float m_MaxIntensity = 20f;
+        private float m_MaxIntensity = 30f;
         private float m_MinIntensity = 1f;
 
         private void Start()

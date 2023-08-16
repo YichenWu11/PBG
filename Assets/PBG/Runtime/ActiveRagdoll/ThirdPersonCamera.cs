@@ -31,6 +31,8 @@ namespace PBG.Runtime
         public LayerMask DontBlockCamera;
         public float CameraRepositionOffset = 0.15f;
 
+        public UIManager uiManager;
+
         private void Start()
         {
             // // Bloom
@@ -49,6 +51,9 @@ namespace PBG.Runtime
 
         private void Update()
         {
+            if (uiManager.IsPause)
+                return;
+
             UpdateCameraInput();
             UpdateCameraTransform();
             AvoidObstacles();

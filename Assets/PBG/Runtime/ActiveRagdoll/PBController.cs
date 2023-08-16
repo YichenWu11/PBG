@@ -81,7 +81,7 @@ namespace PBG.Runtime
             if (!m_PhysicsSyncAnim.IsOnGround && !m_PhysicsSyncAnim.IsGrabbing)
             {
                 m_FallingTime += Time.deltaTime;
-                if (m_FallingTime > 1f)
+                if (m_FallingTime > 2f)
                 {
                     m_MoveEnabled = false;
                     m_ActiveRagdoll.SetAngularDriveScale(0.1f);

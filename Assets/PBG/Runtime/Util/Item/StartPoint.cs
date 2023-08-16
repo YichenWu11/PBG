@@ -3,16 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartPoint : MonoBehaviour
+namespace PBG.Runtime
 {
-    public WorldManager WorldMngr;
-    public bool HasBeenTriggered = false;
-
-    private void OnTriggerEnter(Collider other)
+    public class StartPoint : MonoBehaviour
     {
-        if (!HasBeenTriggered)
-            WorldMngr.CurStartPoint = this;
+        public WorldManager WorldMngr;
+        public UIManager uiManager;
+        public string DisplayContent;
 
-        HasBeenTriggered = true;
+        public bool HasBeenTriggered = false;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!HasBeenTriggered)
+            {
+                WorldMngr.CurStartPoint = this;
+                if (uiManager != null)
+                    uiManager.StartFadeTextInOut(DisplayContent);
+            }
+
+            HasBeenTriggered = true;
+        }
     }
 }

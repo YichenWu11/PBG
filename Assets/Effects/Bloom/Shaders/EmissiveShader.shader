@@ -4,7 +4,7 @@ Shader "Unlit/EmissiveShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _EmissiveColor ("Emissive Color", Color) = (1,1,1,1)
-        _EmissiveIntensity ("Emissive Intensity", Range(0,20)) = 1.0
+        _EmissiveIntensity ("Emissive Intensity", Range(0,30)) = 1.0
     }
     SubShader
     {
