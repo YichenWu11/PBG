@@ -154,6 +154,7 @@ namespace PBG.Runtime
                 MyGlasses.SetActive(!MyGlasses.activeSelf);
                 IsBuffEnabled = !IsBuffEnabled;
                 m_WorldMngr.ToggleVolumeColorGrading();
+                m_WorldMngr.ToggleVolumeDOF();
                 m_WorldMngr.ToggleInvisibleObjectsVis();
             }
         }

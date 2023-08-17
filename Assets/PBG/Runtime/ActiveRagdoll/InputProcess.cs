@@ -26,6 +26,7 @@ public class InputProcess : MonoBehaviour
     private Rigidbody m_RightFoot;
 
     public UIManager uiManager;
+    public WorldManager worldManager;
 
     public bool IsOnGround { get; set; }
 
@@ -87,8 +88,8 @@ public class InputProcess : MonoBehaviour
         if (uiManager.IsPause)
             return;
         // 手柄震动
-        if (VibrateEnabled && value.Get<float>() == 1.0f)
-            GamepadVibrate(0f, 3f, 0.15f);
+        if (VibrateEnabled && value.Get<float>() > 0.5f)
+            GamepadVibrate(0f, 8f, 0.3f);
         onLeftArm?.Invoke(value.Get<float>());
     }
 
@@ -97,19 +98,26 @@ public class InputProcess : MonoBehaviour
         if (uiManager.IsPause)
             return;
         // 手柄震动
-        if (VibrateEnabled && value.Get<float>() == 1.0f)
-            GamepadVibrate(0f, 3f, 0.15f);
+        if (VibrateEnabled && value.Get<float>() > 0.5f)
+            GamepadVibrate(0f, 8f, 0.3f);
         onRightArm?.Invoke(value.Get<float>());
     }
 
     public void OnJump(InputValue value)
     {
+        if (uiManager.IsPause)
+            return;
         onJump?.Invoke(value.isPressed);
     }
 
     public void OnDebug(InputValue value)
     {
         onDebug?.Invoke(value.isPressed);
+    }
+
+    public void OnCheat(InputValue value)
+    {
+        worldManager.Rebirth();
     }
 
     private void UpdateOnGround()

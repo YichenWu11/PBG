@@ -114,7 +114,7 @@ namespace PBG.Runtime
             {
                 var sign = Vector3.Dot(m_TargetDirection, forceDir) > 0f ? 1f : -1f;
                 // 从 MinAngle 到 MaxAngle 插值
-                var forceMagnitude = sign * Mathf.Lerp(4f, 12f, Vector3.Angle(forceDir, Vector3.forward));
+                var forceMagnitude = sign * Mathf.Lerp(2f, 6f, Vector3.Angle(forceDir, Vector3.forward));
                 m_ActiveRagdoll.PhysicalTorso.AddForce(forceDir * forceMagnitude, ForceMode.Impulse);
                 m_ActiveRagdoll.PhysicalAnimator.GetBoneTransform(HumanBodyBones.LeftFoot).GetComponent<Rigidbody>()
                     .AddForce(forceDir * forceMagnitude, ForceMode.Impulse);

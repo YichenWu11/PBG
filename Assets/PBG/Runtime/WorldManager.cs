@@ -9,6 +9,7 @@ namespace PBG.Runtime
         public GameObject PlayerTorso;
         public GameObject GameWorld;
         public StartPoint CurStartPoint;
+        public ThirdPersonCamera ThirdPersonCamera;
         public PostProcessVolume Volume;
 
         public List<InvisibleObject> InvisibleObjects;
@@ -40,6 +41,13 @@ namespace PBG.Runtime
                 colorGrading.enabled.value = !colorGrading.enabled.value;
         }
 
+        public void ToggleVolumeDOF()
+        {
+            DepthOfField depthOfField;
+            if (Volume.profile.TryGetSettings(out depthOfField))
+                depthOfField.enabled.value = !depthOfField.enabled.value;
+        }
+
         public void ToggleInvisibleObjectsVis()
         {
             foreach (var invisible in InvisibleObjects)
@@ -51,7 +59,13 @@ namespace PBG.Runtime
             var playerY = PlayerTorso.transform.position.y;
             var worldY = GameWorld.transform.position.y;
             if (worldY - playerY > FallRoundDis)
-                PlayerTorso.transform.position = CurStartPoint.transform.position;
+                Rebirth();
+        }
+
+        public void Rebirth()
+        {
+            ThirdPersonCamera.Camera.transform.position = CurStartPoint.transform.position;
+            PlayerTorso.transform.position = CurStartPoint.transform.position;
         }
 
         public void QuitGame()

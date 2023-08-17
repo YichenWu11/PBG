@@ -23,7 +23,10 @@ public class EndPoint : MonoBehaviour
             Controller.IsEnd = true;
             OnEndPointTriggered?.Invoke(true);
             if (uiManager != null)
+            {
                 uiManager.StartFadeTextInOut(DisplayContent);
+                uiManager.StartCountDown();
+            }
         }
 
         HasBeenTriggered = true;

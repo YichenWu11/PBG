@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using PBG.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace PBG.Runtime
@@ -22,9 +21,12 @@ namespace PBG.Runtime
 
         public GameObject FadeCanvas;
         public Text FadeText;
+        public Text CountDownText;
 
         public float FadeInDuration = 1f;
         public float DisplayDuration = 2.5f;
+
+        public float CountdownDuration = 5f;
 
         private void Start()
         {
@@ -52,6 +54,12 @@ namespace PBG.Runtime
             Time.timeScale = IsPause ? 0f : 1f;
             if (IsPause)
                 eventSystem.SetSelectedGameObject(FirstButton);
+        }
+
+        public void BackToMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1f;
         }
 
         public void StartFadeTextInOut(string content)
@@ -87,6 +95,26 @@ namespace PBG.Runtime
 
             canvasGroup.alpha = 0;
             FadeCanvas.SetActive(true);
+        }
+
+        public void StartCountDown()
+        {
+            StartCoroutine(Countdown());
+        }
+
+        private IEnumerator Countdown()
+        {
+            var remainingTime = CountdownDuration;
+
+            while (remainingTime > 0)
+            {
+                CountDownText.text = Mathf.Ceil(remainingTime).ToString();
+                remainingTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            CountDownText.text = "0";
+            BackToMainMenu();
         }
     }
 }

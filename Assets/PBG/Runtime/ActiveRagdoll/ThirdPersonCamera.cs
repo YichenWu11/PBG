@@ -24,23 +24,17 @@ namespace PBG.Runtime
 
         public float MinDistance = 1f;
         public float MaxDistance = 3f;
+        public float MarchingDis = 0.05f;
         private float m_Distance;
 
         public float MinVerticalAngle = -30;
         public float MaxVerticalAngle = 60;
         public LayerMask DontBlockCamera;
-        public float CameraRepositionOffset = 0.15f;
 
         public UIManager uiManager;
 
         private void Start()
         {
-            // // Bloom
-            // var bloom = Camera.AddComponent<Bloom>();
-            // bloom.useKarisAverage = true;
-            // bloom.luminanceThreshold = 2.0f;
-            // bloom.bloomIntensity = 0.05f;
-
             Camera.GetComponent<Bloom>().enabled = true;
             Camera.GetComponent<Blur>().enabled = false;
 
@@ -70,18 +64,16 @@ namespace PBG.Runtime
 
         private void UpdateCameraTransform()
         {
-            // Improve steep inclinations
             var movedLookPoint = LookAtPoint.position;
-            if (improveSteepInclinations)
-            {
-                var anglePercent = (m_CameraRotation.y - MinVerticalAngle) / (MaxVerticalAngle - MinVerticalAngle);
-                var currentDistance = anglePercent * inclinationDistance - inclinationDistance / 2;
-                movedLookPoint += Quaternion.Euler(inclinationAngle, 0, 0)
-                                  * Vector3.ProjectOnPlane(Camera.transform.forward, Vector3.up).normalized *
-                                  currentDistance;
-            }
+            // if (improveSteepInclinations)
+            // {
+            //     var anglePercent = (m_CameraRotation.y - MinVerticalAngle) / (MaxVerticalAngle - MinVerticalAngle);
+            //     var currentDistance = anglePercent * inclinationDistance - inclinationDistance / 2;
+            //     movedLookPoint += Quaternion.Euler(inclinationAngle, 0, 0)
+            //                       * Vector3.ProjectOnPlane(Camera.transform.forward, Vector3.up).normalized *
+            //                       currentDistance;
+            // }
 
-            // Smooth
             m_SmoothedLookPoint =
                 Vector3.Lerp(m_SmoothedLookPoint, movedLookPoint, CameraRotationSpeed * Time.deltaTime);
 
@@ -99,7 +91,7 @@ namespace PBG.Runtime
 
             if (hit)
             {
-                Camera.transform.position = hitInfo.point + hitInfo.normal * 0.05f;
+                Camera.transform.position = hitInfo.point + hitInfo.normal * MarchingDis;
                 Camera.transform.LookAt(m_SmoothedLookPoint);
             }
         }

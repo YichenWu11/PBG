@@ -15,6 +15,8 @@ public class GrabControl : MonoBehaviour
 
     private Grabber m_LeftGrab, m_RightGrab;
 
+    public InputProcess InputProcess;
+
     public bool IsGrabbing => m_LeftGrab.IsGrabbing || m_RightGrab.IsGrabbing;
 
     public bool IsGrabKinematic =>

@@ -36,6 +36,7 @@ public class NButton : MonoBehaviour
         {
             var box = Instantiate(Box);
             box.transform.position = transform.position;
+            box.AddComponent<RecycleObject>();
         }
 
         m_HasBox = true;

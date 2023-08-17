@@ -70,8 +70,7 @@ namespace PBG.Runtime.Util
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.rigidbody != null)
-                Grab(collision.rigidbody);
+            if (collision.rigidbody != null) Grab(collision.rigidbody);
         }
 
         private void OnCollisionExit(Collision collision)

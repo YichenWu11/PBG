@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlurMat: {fileID: 0}
+  BlurSize: 1
 --- !u!114 &2901133992348839009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +236,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.25, z: 0.13}
-  m_Center: {x: 0, y: 0.12, z: 0}
+  m_Size: {x: 0.13, y: 0.24999997, z: 0.11688959}
+  m_Center: {x: 4.4622233e-11, y: 0.12, z: 0.0065552127}
 --- !u!153 &4486762911056633678
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -439,6 +440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ActiveRagdoll: {fileID: 4486762911083098165}
   VibrateEnabled: 0
+  uiManager: {fileID: 0}
+  worldManager: {fileID: 0}
   m_OnGroundDetectionDistance: 0.25
   m_MaxSlopeAngle: 45
 --- !u!114 &4486762911083098152
@@ -529,12 +532,13 @@ MonoBehaviour:
   CameraRotationSpeed: 5
   MinDistance: 1.5
   MaxDistance: 2
+  MarchingDis: 0.05
   MinVerticalAngle: -20
   MaxVerticalAngle: 60
   DontBlockCamera:
     serializedVersion: 2
     m_Bits: 8960
-  CameraRepositionOffset: 0.15
+  uiManager: {fileID: 0}
 --- !u!114 &4486762911083098161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,8 +985,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.46, y: 0.2, z: 0.2}
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Size: {x: 0.46000004, y: 0.2, z: 0.13002224}
+  m_Center: {x: 0, y: 0.1, z: -0.011536166}
 --- !u!1 &4486762911370077694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,8 +1382,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.25, z: 0.13}
-  m_Center: {x: 0, y: 0.12, z: 0}
+  m_Size: {x: 0.13, y: 0.24999997, z: 0.11764762}
+  m_Center: {x: -5.7876978e-11, y: 0.12, z: 0.0061761597}
 --- !u!153 &4486762911414755375
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -1849,8 +1853,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10999999, y: 0.33544844, z: 0.1}
-  m_Center: {x: -0.000000020415984, y: 0.19272356, z: 0.00001327965}
+  m_Size: {x: 0.10999999, y: 0.33544844, z: 0.08574082}
+  m_Center: {x: -0.000000022636621, y: 0.1927213, z: -0.0071164193}
 --- !u!153 &4486762912003587003
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2996,8 +3000,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.48, y: 0.28, z: 0.16}
-  m_Center: {x: 0, y: 0.13, z: 0}
+  m_Size: {x: 0.4352928, y: 0.27999997, z: 0.13709807}
+  m_Center: {x: -0.007930967, y: 0.12999998, z: -0.011450928}
 --- !u!153 &4486762912753178683
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -3673,8 +3677,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10999999, y: 0.33471465, z: 0.11864313}
-  m_Center: {x: 0.00000002336215, y: 0.192353, z: -0.010647958}
+  m_Size: {x: 0.10999999, y: 0.33471465, z: 0.103446394}
+  m_Center: {x: 0.000000025745523, y: 0.19235061, z: -0.018246397}
 --- !u!153 &4486762913058165476
 ConfigurableJoint:
   m_ObjectHideFlags: 0
