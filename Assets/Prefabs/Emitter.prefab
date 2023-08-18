@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Radius: 0.1
   m_Velocity: 2000
   m_Mass: 0.5
-  m_BallMaterial: {fileID: 2100000, guid: 9d3cf589b75b3fc449c9d6575c7e185c, type: 2}
+  m_BallMaterial: {fileID: 2100000, guid: 0764dbc9818164844a725b5a82ddd7a1, type: 2}
 --- !u!65 &9136477165093890536
 BoxCollider:
   m_ObjectHideFlags: 0

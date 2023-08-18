@@ -93,7 +93,7 @@ namespace PBG.Runtime.Fractures
             frozen = false;
             rb.constraints = RigidbodyConstraints.None;
             rb.useGravity = true;
-            rb.gameObject.layer = LayerMask.NameToLayer("Default");
+            rb.gameObject.layer = LayerMask.NameToLayer("FrozenGrab");
         }
 
         private void Freeze()

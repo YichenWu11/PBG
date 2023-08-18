@@ -37,7 +37,10 @@ namespace PBG.Runtime.Util
 
             var layerMask0 = LayerMask.NameToLayer("FrozenGrab");
             var layerMask1 = LayerMask.NameToLayer("InnerTrigger");
-            if (whatToGrab.gameObject.layer == layerMask0 || whatToGrab.gameObject.layer == layerMask1)
+            var layerMask2 = LayerMask.NameToLayer("FrozenChunks");
+            if (whatToGrab.gameObject.layer == layerMask0 ||
+                whatToGrab.gameObject.layer == layerMask1 ||
+                whatToGrab.gameObject.layer == layerMask2)
                 return;
 
             // Debug.Log(
