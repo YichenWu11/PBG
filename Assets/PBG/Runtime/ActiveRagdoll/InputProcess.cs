@@ -117,7 +117,7 @@ public class InputProcess : MonoBehaviour
 
     public void OnCheat(InputValue value)
     {
-        worldManager.Rebirth();
+        worldManager.Cheat();
     }
 
     private void UpdateOnGround()

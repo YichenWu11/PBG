@@ -55,25 +55,23 @@ public class Bloom : MonoBehaviour
         Shader.SetGlobalFloat("_bloomIntensity", bloomIntensity);
 
 
-        // 高亮像素筛选
-        var RT_threshold = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGBFloat,
+        var RT_threshold = RenderTexture.GetTemporary(
+            Screen.width, Screen.height, 0, RenderTextureFormat.ARGBFloat,
             RenderTextureReadWrite.Linear);
         RT_threshold.filterMode = FilterMode.Bilinear;
         Graphics.Blit(source, RT_threshold, new Material(Shader.Find("Shaders/threshold")));
 
-
-        var N = downSampleStep; // 下采样次数
+        var N = downSampleStep;
         var downSize = 2;
         var RT_BloomDown = new RenderTexture[N];
 
-        // 创建纹理
         for (var i = 0; i < N; i++)
         {
             var w = Screen.width / downSize;
             var h = Screen.height / downSize;
             RT_BloomDown[i] =
                 RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Linear);
-            RT_BloomDown[i].filterMode = FilterMode.Bilinear; // 启用双线性滤波
+            RT_BloomDown[i].filterMode = FilterMode.Bilinear;
             downSize *= 2;
         }
 
@@ -84,7 +82,6 @@ public class Bloom : MonoBehaviour
             Graphics.Blit(RT_BloomDown[i - 1], RT_BloomDown[i], new Material(Shader.Find("Shaders/downSample")));
 
 
-        // 创建上采样纹理
         var RT_BloomUp = new RenderTexture[N];
         for (var i = 0; i < N - 1; i++)
         {
@@ -96,9 +93,6 @@ public class Bloom : MonoBehaviour
         }
 
         // up sample : RT_BloomUp[i] = Blur(RT_BloomDown[N-2-i]) + RT_BloomUp[i-1]
-        // RT_BloomDown[N-2-i] 是原始的前一级 mip,尺寸为 (w, h)
-        // RT_BloomUp[i-1] 是混合后的前一级 mip, 尺寸为 (w/2, h/2)
-        // RT_BloomUp[i] 是当前待处理的 mip, 尺寸为 (w, h)
         Shader.SetGlobalTexture("_PrevMip", RT_BloomDown[N - 1]);
         Graphics.Blit(RT_BloomDown[N - 2], RT_BloomUp[0], new Material(Shader.Find("Shaders/upSample")));
         for (var i = 1; i < N - 1; i++)

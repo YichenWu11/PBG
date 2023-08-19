@@ -18,8 +18,11 @@ namespace PBG.Runtime.Util
         private Vector3 m_StartPosition;
         private float m_CurDistance = 0f;
 
+        private Rigidbody m_Rb;
+
         private void Start()
         {
+            m_Rb = GetComponentsInChildren<Rigidbody>()[0];
             m_StartPosition = transform.position;
             foreach (var trigger in m_ButtonTrigger)
                 trigger.OnButtonTriggeredEnterOnly += isPressed => UpOrDown = !UpOrDown;

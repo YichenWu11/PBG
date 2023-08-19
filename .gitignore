@@ -14,6 +14,8 @@ SerializedBuildInfo/
 
 Win32/
 
+Demo/
+
 RVTTest_BurstDebugInformation_DoNotShip/
 
 # MemoryCaptures can get excessive in size.

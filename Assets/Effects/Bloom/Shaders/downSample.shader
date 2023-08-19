@@ -78,7 +78,7 @@ Shader "Shaders/downSample"
             {
                 float4 color = float4(0,0,0,1);
                 float2 uv = i.uv;
-                float2 stride = _MainTex_TexelSize.xy;   // 上一级 mip 纹理的 texel size
+                float2 stride = _MainTex_TexelSize.xy;   // 上一级 mip 纹理的 texel size 的倒数
 
                 color.rgb = GaussNxN(_MainTex, uv, _downSampleBlurSize, stride, _downSampleBlurSigma);
 

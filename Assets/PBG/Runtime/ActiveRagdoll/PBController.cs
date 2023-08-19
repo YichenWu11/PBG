@@ -155,6 +155,7 @@ namespace PBG.Runtime
                 IsBuffEnabled = !IsBuffEnabled;
                 m_WorldMngr.ToggleVolumeColorGrading();
                 m_WorldMngr.ToggleVolumeDOF();
+                m_WorldMngr.ToggleVolumeVignette();
                 m_WorldMngr.ToggleInvisibleObjectsVis();
             }
         }

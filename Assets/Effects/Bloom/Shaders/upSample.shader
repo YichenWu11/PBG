@@ -73,7 +73,7 @@ Shader "Shaders/upSample"
 
             sampler2D _MainTex;         // 处理前的 mip[i], 尺寸为 (w, h)
             sampler2D _PrevMip;         // 处理后的 mip[i+1], 尺寸为 (w/2, h/2)
-            float4 _MainTex_TexelSize;  // float4(1/w, 1/h, w, h)
+            float4 _MainTex_TexelSize;  
 
             float4 frag (v2f i) : SV_Target
             {

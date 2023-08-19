@@ -13,9 +13,19 @@ public class UpDownPlatformInner : MonoBehaviour
         m_Rb = GetComponent<Rigidbody>();
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        var joint = other.gameObject.AddComponent<FixedJoint>();
+        joint.connectedBody = m_Rb;
+    }
+
 
     private void OnCollisionStay(Collision other)
     {
-        other.rigidbody.velocity = m_Rb.velocity;
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        DestroyImmediate(other.gameObject.GetComponent<FixedJoint>());
     }
 }

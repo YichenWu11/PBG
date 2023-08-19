@@ -44,7 +44,7 @@ Shader "Shaders/threshold"
             {
                 float4 color = tex2D(_MainTex, i.uv);
                 float lum = dot(float3(0.2126, 0.7152, 0.0722), color.rgb);
-                if(lum>_luminanceThreshole) 
+                if(lum > _luminanceThreshole) 
                 {
                     return color;
                 }

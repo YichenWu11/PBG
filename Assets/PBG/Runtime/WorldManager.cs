@@ -9,6 +9,7 @@ namespace PBG.Runtime
         public GameObject PlayerTorso;
         public GameObject GameWorld;
         public StartPoint CurStartPoint;
+        public List<StartPoint> StartPoints;
         public ThirdPersonCamera ThirdPersonCamera;
         public PostProcessVolume Volume;
 
@@ -48,6 +49,13 @@ namespace PBG.Runtime
                 depthOfField.enabled.value = !depthOfField.enabled.value;
         }
 
+        public void ToggleVolumeVignette()
+        {
+            Vignette vignette;
+            if (Volume.profile.TryGetSettings(out vignette))
+                vignette.enabled.value = !vignette.enabled.value;
+        }
+
         public void ToggleInvisibleObjectsVis()
         {
             foreach (var invisible in InvisibleObjects)
@@ -66,6 +74,20 @@ namespace PBG.Runtime
         {
             ThirdPersonCamera.Camera.transform.position = CurStartPoint.transform.position;
             PlayerTorso.transform.position = CurStartPoint.transform.position;
+        }
+
+        public void Cheat()
+        {
+            // 把 StartPoint 设置成下一个, 并移动人物
+            var curIdx = 0;
+            var nxtIdx = 0;
+            for (var i = 0; i < StartPoints.Count; ++i)
+                if (CurStartPoint.name == StartPoints[i].name)
+                    curIdx = i;
+            nxtIdx = (curIdx + 1) % StartPoints.Count;
+
+            CurStartPoint = StartPoints[nxtIdx];
+            Rebirth();
         }
 
         public void QuitGame()
